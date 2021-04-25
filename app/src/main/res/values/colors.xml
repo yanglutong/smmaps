@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="zhutiSe">#2f8dff</color>#2f8dff
+    <color name="hui">#DEDEDE</color>
+    <color name="red">#EE2C2C</color>
+
+    <color name="preview_bottom_toolbar_bg">#CC000000</color>
+    <color name="preview_bottom_size">#61FFFFFF</color>
+    <color name="colorMyr">#E5E7ED</color>
+</resources>

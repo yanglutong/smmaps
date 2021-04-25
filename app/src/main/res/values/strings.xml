@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">LTE基站定位分析系统</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="list_xun_list">基站巡视列表</string>
+    <string name="panorama_name">街景地图</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!--    <string name="app_name">FilePicker</string>-->
+    <string name="folder_desc">文件:%1$s&#160;&#160;|&#160;&#160;文件夹:%2$s</string>
+    <string name="file_desc">%1$s&#160;&#160;|&#160;&#160;%2$s</string>
+    <string name="selected_file_count">选中(%1$s/%2$s)</string>
+    <string-array name="sort_list">
+        <item>按名称</item>
+        <item>按时间</item>
+        <item>按大小</item>
+        <item>按类型</item>
+    </string-array>
+    <string-array name="sort_list_scan">
+        <item>按名称</item>
+        <item>按时间</item>
+        <item>按大小</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

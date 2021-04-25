@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:background="#888888" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:background="#888888"
+            android:contentDescription="定位icon">
+
+            <RadioButton
+                android:id="@+id/defaulticon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="默认图标"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/customicon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="自定义图标"></RadioButton>
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@mipmap/jianbian" />
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@mipmap/jianbian">
+
+        <ImageView
+            android:id="@+id/iv_finish"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="25dp"
+            android:background="@mipmap/backnew" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="关于"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/iv_set"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:background="@mipmap/seting"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="企业简介"
+                android:textColor="@color/gray_black"
+                android:textSize="20dp" />
+
+
+            <TextView
+
+                android:id="@+id/content1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="（1）公司概况
+河北三明通信股份有限公司成立于2013年，实缴资本3006万元，其位于石家庄市桥西区西城国际B座18楼整层，产权自有，总面积1498.85平方米，其中研发涉密区660平方米；是一家从事移动通信技术和拉曼光谱技术的研发、生产、销售和服务的高新技术企业。
+2019年3月21日河北三明通信股份有限公司（股票代码为：873238）在“全国中小企业股份转让系统”成功上市，并于2019年4月16日在北京“全国中小企业股份转让系统”正式挂牌，为河北企业的发展赢得了荣誉。
+ “新三板”的成功挂牌，意味着三明股份正式迈入资本市场，对增加企业知名度，扩大营销、吸引人才等具有积极而深远的意义，同时为新形势下中小企业拓宽融资渠道、促进良好发展树立了成功典范。对已取得的成绩，三明股份将此“清零”——开始“新的长征”，以本次挂牌为新的起点，乘势而上、整合资源、规范运作，充分利用资本市场促进企业发展，在不久的将来做强做大。
+" />
+
+            <TextView
+
+                android:id="@+id/content2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="（2）资质证书     公司已取得了ISO9001质量管理体系认证证书、ISO4001环境管理体系认证证书、软件企业认定证书、高新技术企业证书、河北省科技型中小企业证书；公司领导十分重视保密工作，严格遵守公安部门工作纪律，遵守秘密、保护秘密、严守秘密，公司已取得了军工三级保密资格单位证书、河北省安全技术防范一级证书、安全技术防范一级备案证。" />
+
+            <TextView
+
+                android:id="@+id/content3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="（3）公司团队
+公司部门分工明确，人员结构合理，是一支优秀的、充满活力的专业队伍。公司现设有研发事业部、技质部、市场部、综合部、财务部、系统集成部，现有员工60余人。公司管理团队经验丰富，为公司的运作提供了良好的支持；技术团队由博士、硕士作为主要技术骨干，多人获得高中级项目经理、网络工程师、安全技术防范工程资格证书，对未来移动通信技术具有独到的见解及成熟的运作经验。
+" />
+
+            <TextView
+
+                android:id="@+id/content4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="（4）成立实验室
+公司与河北省公安厅技侦总队、大唐移动通信成立了“河北省公安厅移动通信技侦专业实验室”。目前实验室已研发的产品均取得了“软件产品登记证”和“软件著作权登记证书”。 自主研发的特种通信产品已列入公安部技侦装备列装目录，并在国内公安、检察院以及军队等众多领域得到全面推广，业务覆盖全国。
+" />
+
+            <TextView
+
+                android:id="@+id/content5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="（5）业务能力
+公司自成立以来，立足于服务公安技侦一线工作，连续3年为北戴河暑期安保工作提供技术保障。随时响应各地技侦部门的技术研讨、技能培训、实战协助等工作，并配合全国技侦部门侦办大要案件200多起，受到了多地技侦单位好评" />
+
+            <TextView
+
+                android:id="@+id/content6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:text=" （6）企业愿景
+我公司将在公安部和河北省公安厅的指导下，继续本着“诚实为本，守信至上”的经营理念，以“科技推动发展，创新打造永恒”的发展思路，专注于公安特种通信产品领域的创新发展，加大研发投入、扩大生产规模，完善售后服务保障措施；凭借不断增强的企业应用化创新能力和定制化服务能力，以赢得更多用户的信任和支持，全力为各行业各领域用户提供高品质服务保障。
+" />
+
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="clip_horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:background="@mipmap/gy_phone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="联系电话:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:autoLink="all"
+                    android:text="400-156-356"
+                    android:textColor="@color/zhutiSe"
+                    android:textSize="12dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="400-156-3536"
+                    android:textColor="@color/zhutiSe"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="clip_horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:background="@mipmap/gy_email" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="邮箱地址:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="HBSMTX@126.com"
+                    android:textColor="@color/zhutiSe"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:autoLink="email"
+                    android:text="HBSMTX@123.com"
+                    android:textColor="@color/zhutiSe"
+                    android:textSize="12dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="clip_horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:background="@mipmap/gy_in" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="公司主页:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="http://www.smtxgf.com/"
+                    android:textColor="@color/zhutiSe"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:autoLink="all"
+                    android:text="http://www.smtxgf.com/"
+                    android:textColor="@color/zhutiSe"
+                    android:textSize="12dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="clip_horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:background="@mipmap/gy_location" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="公司地址:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:autoLink="map"
+                    android:text="石家庄市槐安路西城国际B座18层"
+                    android:textColor="@color/zhutiSe"
+                    android:textSize="12dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="石家庄市槐安路西城国际B座18层"
+                    android:textColor="@color/zhutiSe"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="clip_horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/smimges" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="扫描二维码下载APK"
+                    android:textColor="@color/zhutiSe"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

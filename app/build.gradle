@@ -1,0 +1,123 @@
+apply plugin: 'com.android.application'
+
+android {
+    //noinspection GradleCompatible
+    compileSdkVersion 29
+    defaultConfig {
+        applicationId "com.sm.smmap.smmap"
+        minSdkVersion 15
+        //noinspection OldTargetApi
+        targetSdkVersion 29
+
+        versionCode 26 //更新版本
+        versionName "5.0.2"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+//            minifyEnabled false
+////            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            minifyEnabled true
+//            // Zipalign压缩优化
+//            zipAlignEnabled true
+//            // 移除无用的资源文件
+//            shrinkResources true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+        }
+    }
+    /* 3.0打包生成APK名称 */
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def apkName = "com.sm.smmap.smmap"                // apk name（需要更换成自己的App Name）
+            def environment = variant.name        // release or debug
+            def vCode = variant.versionCode        // version code
+            def vName = variant.versionName        // version name
+            def createTime = new Date().format("YYYY-MM-dd-HH-mm", TimeZone.getTimeZone("GMT+08:00"))
+            // create time
+            outputFileName = "${apkName}_v${vName}_${vCode}-${environment}_${createTime}.apk"
+            // apk name with path
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+//    packagingOptions {
+//
+//        exclude"lib/arm64-v8a/librealm-jni.so"
+//
+//    }
+    compileOptions {
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+
+        targetCompatibility JavaVersion.VERSION_1_8
+
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //noinspection GradleDependency,GradleCompatible,GradleDynamicVersion
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //noinspection GradleDependency,GradleCompatible
+    implementation 'com.android.support:support-v4:28.0.0'
+    /** rxjava **/
+    //noinspection GradleDependency
+    api 'io.reactivex.rxjava2:rxjava:2.0.1'
+    //noinspection GradleDependency
+    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    /** retrofit **/
+    //noinspection GradleDependency
+    api 'com.squareup.retrofit2:retrofit:2.1.0'
+    //noinspection GradleDependency
+    api 'com.squareup.retrofit2:converter-gson:2.0.2'
+    //noinspection GradleDependency
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    /**  okhttp  **/
+    //noinspection GradleDependency
+    api 'com.squareup.okhttp3:okhttp:3.10.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+
+    implementation 'cn.yc:YCDialogLib:3.6.6'//ios弹出框
+    implementation 'com.mylhyl:circleDialog:2.6.3'
+
+    //noinspection AnnotationProcessorOnCompilePath,GradleDependency
+    implementation 'com.jakewharton:butterknife:9.0.0'//绑定view
+
+    //noinspection GradleDependency
+    api 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'me.jessyan:autosize:1.1.2'//今日头条适配
+    api 'com.j256.ormlite:ormlite-android:5.0'//数据库 ormlite
+    implementation 'com.qianwen:update-app:3.5.2'
+    implementation 'com.lzy.net:okgo:3.0.4'
+    implementation 'com.qianwen:okhttp-utils:3.8.0'
+    implementation 'com.blankj:utilcode:1.22.10'//工具类
+    implementation 'ch.ielse:switchbutton:1.0.1'
+    //noinspection GradleDependency,GradleCompatible
+    implementation 'com.android.support:recyclerview-v7:27.0.0'
+//    implementation 'cn.imlibo:FilePicker:v0.0.5_alpha'
+//    implementation project(':filepicker')
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+    //noinspection GradleDependency
+    implementation 'com.github.bumptech.glide:glide:4.6.1'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:27.1.1'
+    //noinspection GradleDependency
+    implementation 'top.zibin:Luban:1.1.3'
+    implementation 'com.yanzhenjie:permission:2.0.0-rc2'
+    implementation 'com.leon:lfilepickerlibrary:1.8.0'
+    implementation files('libs/jxl.jar')
+
+}
