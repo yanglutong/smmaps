@@ -32,6 +32,8 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.NetworkUtils;
+import com.google.gson.Gson;
+import com.sm.smmap.smmap.Bean.DataBean;
 import com.sm.smmap.smmap.MainActivity;
 import com.sm.smmap.smmap.OrmSqlLite.DBManagerGuijiView;
 import com.sm.smmap.smmap.OrmSqlLite.DBManagerJZ;
@@ -43,14 +45,17 @@ import com.sm.smmap.smmap.Utils.MyToast;
 import com.sm.smmap.smmap.Utils.MyUtils;
 import com.sm.smmap.smmap.Utils.ViewLoading;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 public class LoginActivity extends FragmentActivity implements View.OnClickListener {
     private EditText et_user, et_pwd;
     private ImageView iv_show;
@@ -58,7 +63,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     private LoginBena loginBena;
     private boolean showaBoolean = false;
     private TextView tv_version;
-
+    private TimeBean timeBean;
+    public static DataBean dataBean=new DataBean();
 
     private void setUser_pwd() {
         SharedPreferences userSettings = getSharedPreferences("setting", 0);
@@ -100,11 +106,13 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_login2);
+
+        getData();
         setStatBar();
 
         findViews();
-        et_user.setText("admin");
-        et_user.setText("admin");
+      /*  et_user.setText("admin");
+        et_user.setText("admin");*/
 
         setUser_pwd();//设置保存的账号密码
 //        //计算
@@ -118,6 +126,36 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 //        double distancea = DistanceUtil.getDistance(latLng3, latLng4);
 //        Log.e("nzq", "onCreate: distancea" + distancea + "米");
 
+
+    }
+
+    private void getData() {
+        String url = "http://quan.suning.com/getSysTime.do";//这是苏宁的北京时间接口
+        OkHttpClient client = new OkHttpClient();//创建一个通讯对象
+        //创建一个Request
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        okhttp3.Call call = client.newCall(request);
+        call.enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                //请求失败时回调的方法
+                Log.d("test","onFailure");
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                //请求成功时回调的方法
+                if(response.isSuccessful()){
+                    Log.d("test","获取数据成功");
+                    Log.d("test","responce.code()=="+response.code());
+                    String  urlRiQi= response.body().string();
+                    timeBean = new Gson().fromJson(urlRiQi, TimeBean.class);
+                    Log.i("杨路通", "onResponse: "+urlRiQi);
+                }
+            }
+        });
 
     }
 
@@ -167,7 +205,6 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 MyToast.showToast("网络不可用");
                 return;
             }
-
             try {
                 RetrofitFactory.getInstence().API().login(number, pwd).enqueue(new Callback<LoginBena>() {
                     @Override
@@ -182,6 +219,56 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                            MyToast.showToast("服务器异常");
                             return;
                         }
+
+                        /*用于判断当前用户是否在有效期内*/
+                        if(timeBean!=null){//获取服务器日期与当前日期进行对比如果超出日期用户不可使用
+                            String editTime = loginBena.getData().getDeadline();//服务器日期
+                            String sysTime1 = timeBean.getSysTime2();
+
+                            dataBean.setData(editTime);//服务器时间存放
+
+                            String[] current = sysTime1.split(" ");
+                            Log.i("杨路通", "当前日期: "+current[0]);
+                            Log.i("杨路通", "服务器有效日期: "+editTime);
+                            //用户当前使用的日期
+                            if(MyUtils.getTimeCompareSize(current[0],editTime)){//没过服务器时间
+                                MyToast.showToast(" 剩余查询次数:"+loginBena.getData().getRemainder()+"\n"+"当前有效期:"+editTime);
+                                /*MyToast.showToast("有效期");*/
+                            }else{
+                                MyToast.showToast("当前已过有效期");
+                                ViewLoading.dismiss(LoginActivity.this);
+                                return;
+                            }
+                        }else{
+                            Calendar calendar = Calendar.getInstance();
+                            //获取系统的日期
+                            //年
+                            int year = calendar.get(Calendar.YEAR);
+//月
+                            int month = calendar.get(Calendar.MONTH)+1;
+//日
+                            int day = calendar.get(Calendar.DAY_OF_MONTH);
+                            String s=null;
+                            if(month>9&&month<=12){
+                                s=month+"";
+                            }else{
+                                s="0"+month;
+                            }
+                            String data=year+"-"+s+"-"+day;
+                            Log.i("sss",data);
+                            //用户当前使用的日期
+                            String editTime = loginBena.getData().getDeadline();
+
+                                    dataBean.setData(editTime);//服务器时间存放到配置列表
+                            if(MyUtils.getTimeCompareSize(data,editTime)){//没过服务器时间
+                                MyToast.showToast(" 剩余查询次数:"+loginBena.getData().getRemainder()+"\n"+"当前有效期:"+editTime);
+                                /*MyToast.showToast("有效期");*/
+                            }else{
+                                MyToast.showToast("当前已过有效期");
+                                ViewLoading.dismiss(LoginActivity.this);
+                                return;
+                            }
+                        }
                         if (loginBena.getCode() == 1) {
 //                        Toast.makeText(AppLication.getInstance().getApplicationContext(), "登陆成功", Toast.LENGTH_LONG).show();
                             SharedPreferences userSettings = getSharedPreferences("setting", 0);
@@ -189,7 +276,6 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                             editor.putString("name", number);
                             editor.putString("pwd", pwd);
                             editor.commit();
-
 
                             ACacheUtil.putID(loginBena.getData().getUserId() + "");
                             ACacheUtil.putNumberMax(loginBena.getData().getTotal() + "");

@@ -9,8 +9,8 @@ android {
         //noinspection OldTargetApi
         targetSdkVersion 29
 
-        versionCode 26 //更新版本
-        versionName "5.0.2"
+        versionCode 27//更新版本
+        versionName "5.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }

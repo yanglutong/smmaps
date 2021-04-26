@@ -55,12 +55,18 @@ import com.vector.update_app.utils.ColorUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -215,7 +221,33 @@ public class MyUtils {
 //            Log.d(TAG, "pointsonMapClick: " + points.size());
         }
     }
+    /**
+     * 判断2个时间大小
+     * yyyy-MM-dd HH:mm 格式（自己可以修改成想要的时间格式）
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    public static String DATE_TO_STRING_DETAIAL_PATTERN = "yyyy-MM-dd";
+    public static boolean getTimeCompareSize(String startTime, String endTime){
 
+        boolean str = false;
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_TO_STRING_DETAIAL_PATTERN);//年-月-日 时-分
+        try {
+            Date date1 = dateFormat.parse(startTime);//开始时间
+            Date date2 = dateFormat.parse(endTime);//结束时间
+            // 1 结束时间小于开始时间 2 开始时间与结束时间相同 3 结束时间大于开始时间
+            if (date1.getTime()<date2.getTime()){
+                //正常情况下的逻辑操作.
+                str=true;
+            }else{
+                str=false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str ;
+    }
     //版本更新
     public static void upApp(final Context context, String appId) {
         RetrofitFactory.getInstence().API().download("1").enqueue(new Callback<DownBean>() {

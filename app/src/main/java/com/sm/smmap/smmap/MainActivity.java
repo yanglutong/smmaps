@@ -96,6 +96,7 @@ import com.sm.smmap.smmap.Adapter.SerrnTaAdapter;
 import com.sm.smmap.smmap.Bean.NumberBean;
 import com.sm.smmap.smmap.Import.ExcelImportActivity;
 import com.sm.smmap.smmap.It.Mycallback;
+import com.sm.smmap.smmap.Login.LoginActivity;
 import com.sm.smmap.smmap.OrmSqlLite.Bean.GuijiViewBean;
 import com.sm.smmap.smmap.OrmSqlLite.Bean.GuijiViewBeanjizhan;
 import com.sm.smmap.smmap.OrmSqlLite.DBManagerGuijiView;
@@ -217,6 +218,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
     EditText et_baojingtime;
     EditText et_queryMax;
     EditText et_querynum;
+    EditText et_data;
     EditText et_fw;
     EditText et_kg;
     Button bt_adddilaomenu;
@@ -3908,6 +3910,12 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                 et_baojingtime = inflate.findViewById(R.id.et_baojingtime);//报警间隔
                 et_queryMax = inflate.findViewById(R.id.et_queryMax);//允许查询次数
                 et_querynum = inflate.findViewById(R.id.et_querynum);//已使用查询次数
+                et_data = inflate.findViewById(R.id.et_data);//剩余使用时长
+                if(LoginActivity.dataBean.getData()!=null){
+                    et_data.setText(LoginActivity.dataBean.getData());
+                }else{
+                    et_data.setText("未知");
+                }
                 bt_adddilaomenu = inflate.findViewById(R.id.bt_adddilaomenu);//确认按钮
                 bt_adddilaomenu.setOnClickListener(this);
                 et_guijitime.setText(ACacheUtil.getguitime());//设置轨迹数据

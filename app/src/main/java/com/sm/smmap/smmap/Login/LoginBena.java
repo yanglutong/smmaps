@@ -50,6 +50,7 @@ public class LoginBena {
          * userId : 1
          * userName : admin
          * passWord : 21232f297a57a5a743894a0e4a801fc3
+         * "editTime": "2021-04-26 09:11:36",
          * token : 32asd
          * nickName : smtx
          * age : 18
@@ -67,7 +68,17 @@ public class LoginBena {
         private int type;
         private int companyId;
         private int times;
+        private String editTime;
         private String total;
+        private String deadline;
+
+        public String getDeadline() {
+            return deadline;
+        }
+
+        public void setDeadline(String deadline) {
+            this.deadline = deadline;
+        }
 
         @Override
         public String toString() {
@@ -84,6 +95,14 @@ public class LoginBena {
                     ", total='" + total + '\'' +
                     ", remainder='" + remainder + '\'' +
                     '}';
+        }
+
+        public String getEditTime() {
+            return editTime;
+        }
+
+        public void setEditTime(String editTime) {
+            this.editTime = editTime;
         }
 
         public String getTotal() {
