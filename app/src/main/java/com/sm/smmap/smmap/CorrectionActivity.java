@@ -67,7 +67,7 @@ public class CorrectionActivity extends FragmentActivity implements View.OnClick
         String lat = intent.getStringExtra("lat");
         String lon = intent.getStringExtra("lon");
         latLngoneself = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
-        setStatBar();
+//        setStatBar();
         findVies();
     }
 

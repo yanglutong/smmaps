@@ -1,4 +1,5 @@
-package com.sm.smmap.smmap.lte_nr;
+/*
+package com.sm.smmap.smmap.drive_test;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -34,6 +35,11 @@ import android.widget.TextView;
 
 import com.sm.smmap.smmap.R;
 import com.sm.smmap.smmap.Utils.GCJ02ToWGS84Util;
+import com.sm.smmap.smmap.Utils.MyToast;
+import com.sm.smmap.smmap.lte_nr.My4GAdapter;
+import com.sm.smmap.smmap.lte_nr.My5GAdapter;
+import com.sm.smmap.smmap.lte_nr.To4GBean;
+import com.sm.smmap.smmap.lte_nr.To5GBean;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -42,14 +48,14 @@ import java.util.Map;
 
 import static com.sm.smmap.smmap.Utils.DtUtils.getBand;
 
-public class BaseNrLteActivity2 extends AppCompatActivity {
-    public static BaseNrLteActivity2 mainActivity;
+public class DriveTestActivity extends AppCompatActivity {
+    public static DriveTestActivity mainActivity;
     private String lon;
     private String lat;
     private TextView tv_location;
 
-
     private ArrayList<To4GBean> array4GList=new ArrayList<>();
+    private ArrayList<DriveTest4GBean> driveTest4GBeans=new ArrayList<>();
     private String operator;
     private TextView tv_rssl;
     private TextView tv_rsrp;
@@ -238,13 +244,17 @@ public class BaseNrLteActivity2 extends AppCompatActivity {
     private String formatLat;
     private ImageView iv_black;
     private Runnable run;
+    private String d;
+    private TextView tv_jz;
+    private MySql mySql;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);设置标题栏状态
-        setContentView(R.layout.activity_base_nr_lte2);
+        setContentView(R.layout.drive_test_activity);
+        mySql = new MySql(this);
 //        setStatBar();
         if(getSupportActionBar()!=null){
             getSupportActionBar().hide();
@@ -329,10 +339,15 @@ public class BaseNrLteActivity2 extends AppCompatActivity {
 
 
     private void findView() {
-        cons = findViewById(R.id.cons);
         tv_location = findViewById(R.id.tv_location);
         iv_black = findViewById(R.id.iv_black);
-//        5G
+        tv_jz = findViewById(R.id.tv_jz);//用于路测查询
+
+
+         */
+/*
+        5G
+        * *//*
 
         linear_5G =  findViewById(R.id.Linear_5G);
         recyclerView4G =  findViewById(R.id.recycler4G);
@@ -372,11 +387,15 @@ public class BaseNrLteActivity2 extends AppCompatActivity {
 
         iv_log =  findViewById(R.id.iv_log);
         tv_name = findViewById(R.id.tv_Name);
-//        5G
+        */
+/*fdsf
+        5G
+        * *//*
 
 
 
-//4G
+        */
+/*4G*//*
 
         linear_4G =  findViewById(R.id.Linear_4G);
         tvLTE_band =  findViewById(R.id.tvLTE_band);
@@ -387,8 +406,17 @@ public class BaseNrLteActivity2 extends AppCompatActivity {
         tvLTE_tac =  findViewById(R.id.tvLTE_tac);
         tvLTE_lte1 =  findViewById(R.id.tvLTE_LTE);
 
-//4G
+        */
+/*4G*//*
 
+
+        //点击查询出来连接的基站记录
+        tv_jz.setOnClickListener(v -> {
+            ArrayList<DriveTest4GBean> beans = mySql.selectAdd();
+            for (int i = 0; i <beans.size() ; i++) {
+                MyToast.showToast("eci--"+beans.get(i).getLteCi()+" "+"tac--"+beans.get(i).getLteTac()+" "+"pci--"+beans.get(i).getLtePci());
+            }
+        });
     }
 
 
@@ -435,7 +463,8 @@ public class BaseNrLteActivity2 extends AppCompatActivity {
         linear_4G.setVisibility(View.VISIBLE);
         my5GRecycler.setVisibility(View.GONE);
         my4GRecycler.setVisibility(View.VISIBLE);
-//5G资源释放
+        */
+/*5G资源释放*//*
 
         if (list != null) {
             list.clear();
@@ -443,7 +472,8 @@ public class BaseNrLteActivity2 extends AppCompatActivity {
         if(handler1!=null){
             handler1.removeCallbacks(runnable);
         }
-//5G资源释放
+        */
+/*5G资源释放*//*
 
 
 
@@ -490,7 +520,10 @@ public class BaseNrLteActivity2 extends AppCompatActivity {
         linear_5G.setVisibility(View.VISIBLE);
         my5GRecycler.setVisibility(View.VISIBLE);
         my4GRecycler.setVisibility(View.GONE);
-//                    4G的资源释放
+                    */
+/*
+                    4G的资源释放
+                    * *//*
 
         if(array4GList.size()>0){
             array4GList.clear();
@@ -498,8 +531,10 @@ public class BaseNrLteActivity2 extends AppCompatActivity {
         if(runnable4G!=null){
             handler4G.removeCallbacks(runnable4G);
         }
-//                    4G的资源释放
-
+                    */
+/*
+                    4G的资源释放
+                    * *//*
 
         get5GDemo();
         recyclerView5G.setLayoutManager(new LinearLayoutManager(this));
@@ -562,6 +597,7 @@ public class BaseNrLteActivity2 extends AppCompatActivity {
             if (info.toString().contains("CellInfoLte")) {
                 @SuppressLint({"NewApi", "LocalSuppress"}) CellInfoLte cellInfoLte = (CellInfoLte) info;
                 @SuppressLint({"NewApi", "LocalSuppress"}) CellIdentityLte cellIdentityLte = cellInfoLte.getCellIdentity();
+
                 lteTac = cellIdentityLte.getTac();
                 lteCi = cellIdentityLte.getCi();
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
@@ -614,16 +650,19 @@ public class BaseNrLteActivity2 extends AppCompatActivity {
 //中国移动
                         Log.i("杨路通", "中国移动: ");
                         ope="CMCC";
+                        d="CMCC";
                         name="中国移动";
                     }else if(operator.equals("46001") || operator.equals("46006") || operator.equals("46009")){
 //中国联通
                         Log.i("杨路通", "中国联通: ");
                         ope="CUCC";
+                        d="CUCC";
                         name="中国联通";
                     }else if(operator.equals("46003") || operator.equals("46005") || operator.equals("46011")){
 //中国电信
                         Log.i("杨路通", "中国电信: ");
                         ope="CTCC";
+                        d="CTCC";
                         name="中国电信";
                     }
                 }
@@ -632,9 +671,15 @@ public class BaseNrLteActivity2 extends AppCompatActivity {
                         lteCi+"",lteEarfac+"",lteBand+"",lteRssi+"",
                         lteRsrp+"", lteRsrq+"", lteRssnr+"",ope,"LTE","小区类型 LTE"));
             }
+
         }
+        */
+/*遍历4g每次获取到的tac值 获取到当前连接的一条，首次连接就存放数据库，第二次连接就把当前的连接这条和上次存放到数据库的一条进行比对
+        * 如果数据一样不做处理 如果数据不一样就存放到数据库
+        * *//*
+
     }
-    private void add4GMi() {
+   private void add4GMi() {
         array4GList.add(new To4GBean("lteMccString","lteMncString",lteTac+"","PCI",
                 "","EARFCN","BAND","RSSI",
                 "RSRP", "RSRQ", "","","LTE","小区类型 LTE"));
@@ -733,7 +778,7 @@ public class BaseNrLteActivity2 extends AppCompatActivity {
                         Log.i("杨路通", "ssSinr: "+ssSinr);
                         Log.i("杨路通", "lac: "+lac);
                         Log.i("杨路通", "psc: "+psc);
-                        list.add(new To5GBean("",band+"", nrarfcn+"", pci+"",
+                        list.add(new To5GBean(band+"", nrarfcn+"", pci+"",
                                 ssRsrp+"", ssRsrq+"", ssSinr+"",cid,lac,psc,"NR","小区类型 NR",mncString));
                     }
                 }
@@ -741,15 +786,18 @@ public class BaseNrLteActivity2 extends AppCompatActivity {
         }
     }
     private void addMi() {
-        list.add(new To5GBean("","BAND", "NR ARFCN", "PCI", "RSRP", "RSRQ", "SINR",null,0,0,"NR","小区类型 NR",
+        list.add(new To5GBean("BAND", "NR ARFCN", "PCI", "RSRP", "RSRQ", "SINR",null,0,0,"NR","小区类型 NR",
                 "00"));
     }
 
 
-//      用Math进行比较0~10 5是否在此区间
+    */
+/*
+      用Math进行比较0~10 5是否在此区间
+  * *//*
 
     public static boolean rangeInDefined(int current, int min, int max)
     {
         return Math.max(min, current) == Math.min(current, max);
     }
-}
+}*/

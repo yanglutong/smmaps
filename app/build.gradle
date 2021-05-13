@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     //noinspection GradleCompatible
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.sm.smmap.smmap"
-        minSdkVersion 15
+        minSdkVersion 19
         //noinspection OldTargetApi
-        targetSdkVersion 29
+        targetSdkVersion 30
 
         versionCode 27//更新版本
         versionName "5.0.3"

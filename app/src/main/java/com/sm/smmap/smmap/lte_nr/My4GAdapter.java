@@ -21,11 +21,11 @@ public class My4GAdapter extends RecyclerView.Adapter {
     public My4GAdapter(ArrayList<To4GBean> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
-        for (int i = 0; i <arrayList.size() ; i++) {
+       /* for (int i = 0; i <arrayList.size() ; i++) {
             if(i==1){
                 arrayList.remove(1);
             }
-        }
+        }*/
     }
 
     @NonNull

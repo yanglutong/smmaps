@@ -97,7 +97,6 @@ public class DtUtils {
             Log.e("cellInfoList.size=" + cellInfoList.size(), "");
 //            GsmInfo gsmInfo;
             SpBean bean;
-
             for (CellInfo info : cellInfoList) {
                 Log.e("nzqinfos" + info.toString(), "");
                 if (info.toString().contains("CellInfoLte")) {

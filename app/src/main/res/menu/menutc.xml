@@ -63,6 +63,10 @@
         android:id="@+id/config_message"
         android:icon="@mipmap/ic_launcher"
         android:title="基站信息"></item>
+    <!--<item
+        android:id="@+id/config_drive"
+        android:icon="@mipmap/ic_launcher"
+        android:title="路测信息"></item>-->
 
     <item
         android:id="@+id/guanyu"

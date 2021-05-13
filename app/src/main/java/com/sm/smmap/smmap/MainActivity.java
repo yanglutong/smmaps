@@ -3725,7 +3725,6 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                             Log.d("gsmInfoList", "onCheckedChanged:一条 ");
                         } else {//多条
                             for (int i = 0; i < gsmInfoList.size(); i++) {
-
                                 int cid = gsmInfoList.get(i).getCid();
                                 int tac = gsmInfoList.get(i).getTac();
                                 if (cid != 2147483647 && tac != 2147483647) {
@@ -3968,7 +3967,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
             case R.id.config_message:
                 //基站界面
 //                Toast.makeText(this, "你点击了基站信息", Toast.LENGTH_SHORT).show();
-                Intent intent1 = new Intent(this, BaseNrLteActivity2.class);
+                Intent intent1 = new Intent(this, BaseNrLteActivity.class);
                 if(longitude!=null&&latitude!=null){
                     Log.i("杨路通", "Main给BaseMsg经度: "+longitude);
                     Log.i("杨路通", "Main给BaseMsg纬度: "+latitude);
@@ -3976,6 +3975,18 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                     intent1.putExtra("latitude", latitude+"");
                 }
                 startActivity(intent1);
+                break;
+                case R.id.config_drive:
+                //基站界面
+                Toast.makeText(this, "你点击了基站信息", Toast.LENGTH_SHORT).show();
+               /* Intent intent2 = new Intent(this, DriveTestActivity.class);
+                if(longitude!=null&&latitude!=null){
+                    Log.i("杨路通", "Main给BaseMsg经度: "+longitude);
+                    Log.i("杨路通", "Main给BaseMsg纬度: "+latitude);
+                    intent2.putExtra("longitude", longitude+"");
+                    intent2.putExtra("latitude", latitude+"");
+                }
+                startActivity(intent2);*/
                 break;
 
             case R.id.jzxs:
@@ -3998,8 +4009,8 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
 
             case R.id.dataimport://数据导入
 
-                Intent intent2 = new Intent(MainActivity.this, ExcelImportActivity.class);
-                startActivity(intent2);
+                Intent intent3 = new Intent(MainActivity.this, ExcelImportActivity.class);
+                startActivity(intent3);
         }
         return false;
     }

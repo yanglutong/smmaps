@@ -13,6 +13,16 @@ public class To5GBean {
     private String nr;
     private String nrType;
     private String mnc;
+    private String tac;
+
+
+    public String getTac() {
+        return tac;
+    }
+
+    public void setTac(String tac) {
+        this.tac = tac;
+    }
 
     public String getBAND() {
         return BAND;
@@ -110,7 +120,8 @@ public class To5GBean {
         this.mnc = mnc;
     }
 
-    public To5GBean(String BAND, String NR_ARFCN, String PCI, String RSRP, String RSRQ, String SINR, String CID, int lac, int psc, String nr, String nrType, String mnc) {
+    public To5GBean(String tac,String BAND, String NR_ARFCN, String PCI, String RSRP, String RSRQ, String SINR, String CID, int lac, int psc, String nr, String nrType, String mnc) {
+        this.tac=tac;
         this.BAND = BAND;
         this.NR_ARFCN = NR_ARFCN;
         this.PCI = PCI;

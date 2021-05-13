@@ -31,7 +31,7 @@ public class introduceActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introduce);
-        setStatBar();
+//        setStatBar();
         findvies();
         setData();
     }
