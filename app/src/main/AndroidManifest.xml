@@ -213,7 +213,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".lte_nr.BaseNrLteActivity"></activity>
         <activity android:name=".lte_nr.BaseNrLteActivity2" />
-        <activity android:name=".drive_test.DriveTestActivity" /> <!-- 数据导入 -->
+<!--        <activity android:name=".drive_test.DriveTestActivity" /> &lt;!&ndash; 数据导入 &ndash;&gt;-->
         <activity android:name=".Import.ExcelImportActivity">
 
             <!-- <intent-filter> -->

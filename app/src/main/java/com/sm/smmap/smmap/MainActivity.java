@@ -3976,9 +3976,9 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                 }
                 startActivity(intent1);
                 break;
-                case R.id.config_drive:
+//                case R.id.config_drive:
                 //基站界面
-                Toast.makeText(this, "你点击了基站信息", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "你点击了基站信息", Toast.LENGTH_SHORT).show();
                /* Intent intent2 = new Intent(this, DriveTestActivity.class);
                 if(longitude!=null&&latitude!=null){
                     Log.i("杨路通", "Main给BaseMsg经度: "+longitude);
@@ -3987,7 +3987,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                     intent2.putExtra("latitude", latitude+"");
                 }
                 startActivity(intent2);*/
-                break;
+//                break;
 
             case R.id.jzxs:
 //                Toast.makeText(MainActivity.this, "你点击了基站巡视", Toast.LENGTH_LONG).show();
