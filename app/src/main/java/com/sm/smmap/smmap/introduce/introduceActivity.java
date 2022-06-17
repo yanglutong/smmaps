@@ -2,21 +2,16 @@ package com.sm.smmap.smmap.introduce;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
 import com.sm.smmap.smmap.R;
-import com.sm.smmap.smmap.Utils.MyUtils;
 
 /**
  * 关于公司介绍

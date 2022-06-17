@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.sm.smmap.smmap">
-
+    
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- <supports-screens -->
@@ -14,91 +14,38 @@
     <!-- <uses-sdk android:minSdkVersion="8" /> -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- //获取设备网络状态，禁用后无法获取网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- //网络权限，当禁用后，无法进行检索等相关业务 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- //读取设备硬件信息，统计数据 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- //读取系统信息，包含系统版本等信息，用作统计 -->
     <uses-permission
         android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" /> <!-- //获取设备的网络状态，鉴权所需网络代理 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- //允许sd卡写权限，需写入地图数据，禁用后无法显示地图 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- //这个权限用于进行网络定位 -->
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" /> <!-- //这个权限用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- //获取统计数据 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- //使用步行AR导航，配置Camera权限 -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- //程序在手机屏幕关闭后后台进程仍然运行 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission
         android:name="android.permission.MEDIA_CONTENT_CONTROL"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- android:minSdkVersion="7" -->
     <!-- android:targetSdkVersion="10" /> -->
     <!-- 访问网络，进行地图相关业务数据请求，包括地图数据，路线规划，POI检索等 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 获取网络状态，根据网络状态切换进行数据请求网络转换 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 读取外置存储。如果开发者使用了So动态加载功能并且把SO文件放在了外置存储区域，则需要申请该权限，否则不需要 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 写外置存储。如果开发者使用了离线地图，并且数据写在外置存储区域，则需要申请该权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 以下两个权限用于Demo中定位功能展示，如果开发者实际不需要百度定位功能，可不申请 -->
     <!-- 这个权限用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 这个权限用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 调用相机，用于实现扫描二维码，预览个性化地图编辑器生成的个性化地图样式，开发者实际开发中地图SDK不需要该权限 -->
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- //获取设备网络状态，禁用后无法获取网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- //网络权限，当禁用后，无法进行检索等相关业务 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- //读取设备硬件信息，统计数据 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- //读取系统信息，包含系统版本等信息，用作统计 -->
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" /> <!-- //获取设备的网络状态，鉴权所需网络代理 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- //允许sd卡写权限，需写入地图数据，禁用后无法显示地图 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- //这个权限用于进行网络定位 -->
-    <uses-permission
-        android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" /> <!-- //这个权限用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> <!-- //获取统计数据、 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- //使用步行AR导航，配置Camera权限 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- //程序在手机屏幕关闭后后台进程仍然运行 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" /> <!-- 这个权限用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 这个权限用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission
         android:name="android.permission.DEVICE_POWER"
@@ -106,88 +53,12 @@
     <uses-permission
         android:name="android.permission.DEVICE_POWER"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission
-        android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />
+    <!-- android:targetSdkVersion="10" /> -->
+
+     <!-- //程序在手机屏幕关闭后后台进程仍然运行 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission
-        android:name="android.permission.MEDIA_CONTENT_CONTROL"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- android:minSdkVersion="7" -->
     <!-- android:targetSdkVersion="10" /> -->
-    <!-- 访问网络，进行地图相关业务数据请求，包括地图数据，路线规划，POI检索等 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 获取网络状态，根据网络状态切换进行数据请求网络转换 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 读取外置存储。如果开发者使用了So动态加载功能并且把SO文件放在了外置存储区域，则需要申请该权限，否则不需要 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 写外置存储。如果开发者使用了离线地图，并且数据写在外置存储区域，则需要申请该权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 以下两个权限用于Demo中定位功能展示，如果开发者实际不需要百度定位功能，可不申请 -->
-    <!-- 这个权限用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 这个权限用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 调用相机，用于实现扫描二维码，预览个性化地图编辑器生成的个性化地图样式，开发者实际开发中地图SDK不需要该权限 -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- //获取设备网络状态，禁用后无法获取网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- //网络权限，当禁用后，无法进行检索等相关业务 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- //读取设备硬件信息，统计数据 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- //读取系统信息，包含系统版本等信息，用作统计 -->
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" /> <!-- //获取设备的网络状态，鉴权所需网络代理 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- //允许sd卡写权限，需写入地图数据，禁用后无法显示地图 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- //这个权限用于进行网络定位 -->
-    <uses-permission
-        android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" /> <!-- //这个权限用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- //获取统计数据 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- //使用步行AR导航，配置Camera权限 -->
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- //程序在手机屏幕关闭后后台进程仍然运行 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission
-        android:name="android.permission.MEDIA_CONTENT_CONTROL"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- android:minSdkVersion="7" -->
-    <!-- android:targetSdkVersion="10" /> -->
-    <!-- 访问网络，进行地图相关业务数据请求，包括地图数据，路线规划，POI检索等 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 获取网络状态，根据网络状态切换进行数据请求网络转换 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 读取外置存储。如果开发者使用了So动态加载功能并且把SO文件放在了外置存储区域，则需要申请该权限，否则不需要 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 写外置存储。如果开发者使用了离线地图，并且数据写在外置存储区域，则需要申请该权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 以下两个权限用于Demo中定位功能展示，如果开发者实际不需要百度定位功能，可不申请 -->
-    <!-- 这个权限用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 这个权限用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 调用相机，用于实现扫描二维码，预览个性化地图编辑器生成的个性化地图样式，开发者实际开发中地图SDK不需要该权限 -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <supports-screens
         android:anyDensity="true"
@@ -202,6 +73,7 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
+        tools:replace="android:icon, android:theme"
         android:name=".AppLication"
         android:allowBackup="true"
         android:icon="@mipmap/start"
@@ -211,9 +83,8 @@
         android:roundIcon="@mipmap/start"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".lte_nr.BaseNrLteActivity"></activity>
-        <activity android:name=".lte_nr.BaseNrLteActivity2" />
-<!--        <activity android:name=".drive_test.DriveTestActivity" /> &lt;!&ndash; 数据导入 &ndash;&gt;-->
+        <activity android:name=".lte_nr.BaseNrLteActivity" android:screenOrientation="portrait"></activity>
+        <!--        <activity android:name=".drive_test.DriveTestActivity" /> &lt;!&ndash; 数据导入 &ndash;&gt;-->
         <activity android:name=".Import.ExcelImportActivity">
 
             <!-- <intent-filter> -->
@@ -237,7 +108,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="BxM9BAZbkfGOXM3miubevll0RCC5GbGS" /> <!-- BxM9BAZbkfGOXM3miubevll0RCC5GbGS -->
+            android:value="9rQ8lduCt53WtOvlDlIoAqNGgEvRtEsI" /> <!-- BxM9BAZbkfGOXM3miubevll0RCC5GbGS -->
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1" />
@@ -247,13 +118,13 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" />
         <activity
             android:name=".PanoramaDemoActivityMain"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="sensor" /> <!-- 运行轨迹 -->
-        <activity android:name=".TrackShowDemo" /> <!-- 登陆 -->
-        <activity android:name=".Login.LoginActivity">
+            android:screenOrientation="sensor"  /> <!-- 运行轨迹 -->
+        <activity android:name=".TrackShowDemo" android:screenOrientation="portrait"/> <!-- 登陆 -->
+        <activity android:name=".Login.LoginActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -261,9 +132,9 @@
             </intent-filter>
             <!-- 关于 -->
         </activity>
-        <activity android:name=".introduce.introduceActivity" />
-        <activity android:name=".TaActivity" />
-        <activity android:name=".JzListActivity">
+        <activity android:name=".introduce.introduceActivity" android:screenOrientation="portrait" />
+        <activity android:name=".TaActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".JzListActivity" android:screenOrientation="portrait">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -272,26 +143,26 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".SernnXqActivity" />
+        <activity android:name=".SernnXqActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".LocationDemo"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+<!--             <intent-filter>-->
+<!--             <action android:name="android.intent.action.MAIN" />-->
 
 
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+<!--             <category android:name="android.intent.category.LAUNCHER" />-->
+<!--             </intent-filter>-->
         </activity>
-        <activity android:name=".CorrectionActivity" />
-        <activity android:name=".filepicker.activity.SelectFileByBrowserActivity" />
-        <activity android:name=".filepicker.activity.SelectPictureActivity" />
+        <activity android:name=".CorrectionActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".filepicker.activity.SelectFileByBrowserActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".filepicker.activity.SelectPictureActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".filepicker.activity.SelectFileByScanActivity"
-            android:theme="@style/AppTheme2" />
+            android:theme="@style/AppTheme2" android:screenOrientation="portrait"/>
 
         <provider
             android:name=".filepicker.model.EssFileProvider"

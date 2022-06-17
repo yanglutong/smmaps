@@ -1,10 +1,8 @@
 package com.sm.smmap.smmap;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
+import androidx.multidex.MultiDexApplication;
 
 
 import com.baidu.lbsapi.BMapManager;
@@ -13,8 +11,6 @@ import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.lzy.okgo.OkGo;
 import com.sm.smmap.smmap.Login.LoginActivity;
-import com.sm.smmap.smmap.Utils.CrashHandler;
-import com.sm.smmap.smmap.Utils.RWCrashHandler;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.Locale;
@@ -27,7 +23,7 @@ import me.jessyan.autosize.internal.CustomAdapt;
 import me.jessyan.autosize.onAdaptListener;
 import me.jessyan.autosize.utils.LogUtils;
 
-public class AppLication extends Application {
+public class AppLication extends MultiDexApplication {
     private static AppLication mInstance = null;
     public BMapManager mBMapManager = null;
     public static Context context;//需要使用的上下文对象;application实例
@@ -40,7 +36,7 @@ public class AppLication extends Application {
 
 
         //当 App 中出现多进程, 并且您需要适配所有的进程, 就需要在 App 初始化时调用 initCompatMultiProcess()
-        //在 Demo 中跳转的三方库中的 DefaultErrorActivity 就是在另外一个进程中, 所以要想适配这个 Activity 就需要调用 initCompatMultiProcess()
+        //在 Demo 中跳转的三方库中的 q q            就是在另外一个进程中, 所以要想适配这个 Activity 就需要调用 initCompatMultiProcess()
         AutoSize.initCompatMultiProcess(this);
         /**
          * 以下是 AndroidAutoSize 可以自定义的参数, {@link AutoSizeConfig} 的每个方法的注释都写的很详细
@@ -91,6 +87,10 @@ public class AppLication extends Application {
         customAdaptForExternal();
         // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
         // 默认本地个性化地图初始化方法
+        //用户同意协议
+        // 是否同意隐私政策，默认为false
+        SDKInitializer.setAgreePrivacy(getApplicationContext(), true);
+//        SDKInitializer.setAgreePrivacy(this, false);
         SDKInitializer.initialize(this);
 
         //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
@@ -180,5 +180,9 @@ public class AppLication extends Application {
 
         return mInstance;
     }
-
+    @Override
+    protected void attachBaseContext(android.content.Context base) {
+        super.attachBaseContext(base);
+        androidx.multidex.MultiDex.install(this);
+    }
 }

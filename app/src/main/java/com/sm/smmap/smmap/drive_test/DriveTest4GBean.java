@@ -2,6 +2,7 @@ package com.sm.smmap.smmap.drive_test;
 /*用于路测 保存每一次tac lac的值*/
 public class DriveTest4GBean {
     public DriveTest4GBean() {
+        
     }
 
     public DriveTest4GBean(String lteMccString, String lteMncString, String lteTac, String ltePci, String lteCi, String lteEarfac, String lteBand, String operatorName, String operatorType) {

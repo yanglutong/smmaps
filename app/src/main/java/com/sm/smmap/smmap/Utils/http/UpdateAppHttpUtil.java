@@ -1,6 +1,6 @@
 package com.sm.smmap.smmap.Utils.http;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.vector.update_app.HttpManager;
 import com.zhy.http.okhttp.OkHttpUtils;

@@ -1,24 +1,19 @@
 package com.sm.smmap.smmap.Retrofit;
 
 
-import android.text.Editable;
-
 import com.sm.smmap.smmap.Bean.NumberBean;
 import com.sm.smmap.smmap.Login.LoginBena;
 import com.sm.smmap.smmap.Retrofit.Bean.JzDataQury;
 import com.sm.smmap.smmap.Retrofit.Bean.JzGetData;
 import com.sm.smmap.smmap.Utils.Bean.DownBean;
 
-import java.math.BigInteger;
-import java.util.Map;
-
 import okhttp3.RequestBody;
-import retrofit2.http.Body;
+import retrofit2.Call;
+import retrofit2.adapter.rxjava2.Result;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 
 
 /**
@@ -71,5 +66,15 @@ public interface RetrofitService {
                                        @Query("tac") int tac,//tac
                                        @Query("ECI") int ECI//eci
     );
+    @GET(MyURL.getBaseUrl)
+    Call<Result> QueryJz(@Query("mnc") String mnc,//运营商
+                         @Query("lac") int tac,//tac
+                         @Query("cell") int ECI,//cid
+                         @Query("key") int Apikey);//ke
+    @GET(MyURL.getBaseUrl3)
+    retrofit2.Call<RequestBody> QueryJz3(@Query("sid") int sid,//运营商
+                                         @Query("nid") int nid,//tac
+                                         @Query("bid") int bid,//cid
+                                         @Query("key") int Apikey);//ke
 
 }

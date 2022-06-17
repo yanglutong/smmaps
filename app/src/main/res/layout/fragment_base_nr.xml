@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".lte_nr.BaseNrLteActivity">
 
     <ScrollView
@@ -229,7 +228,7 @@
                     </ImageView>
                     <TextView
                         android:layout_weight="1"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:text="服务小区"
                         android:textColor="#FF000000"
                         android:layout_marginLeft="@dimen/x6"
@@ -245,7 +244,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="数据网"
                         android:layout_marginLeft="@dimen/x18"
                         android:layout_gravity="bottom"
@@ -258,7 +257,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="LTE"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:textColor="#FF022A8F"
                         android:layout_marginRight="@dimen/x18"
                         android:gravity="right"
@@ -279,7 +278,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="小区类型"
                         android:layout_marginLeft="@dimen/x18"
                         android:layout_gravity="bottom"
@@ -292,7 +291,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="LTE"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:textColor="#FF022A8F"
                         android:layout_marginRight="@dimen/x18"
                         android:gravity="right"
@@ -314,7 +313,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="TAC"
                         android:layout_marginLeft="@dimen/x18"
                         android:layout_gravity="bottom"
@@ -327,7 +326,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="394"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:textColor="#FF022A8F"
                         android:layout_marginRight="@dimen/x18"
                         android:gravity="right"
@@ -355,14 +354,14 @@
                         android:layout_gravity="bottom"
                         android:layout_marginLeft="@dimen/x18"
                         android:text="PCI"
-                        android:textSize="@dimen/x20"></TextView>
+                        style="@style/TextBaseSize"></TextView>
                     <TextView
                         android:id="@+id/tvLTE_pci"
                         android:layout_gravity="bottom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4316180481(1053755-1)"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:textColor="#FF022A8F"
                         android:layout_marginRight="@dimen/x18"
                         android:gravity="right"
@@ -384,7 +383,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="ECI"
                         android:layout_marginLeft="@dimen/x18"
                         android:layout_gravity="bottom"
@@ -400,7 +399,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="504990"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:textColor="#FF022A8F"
                         />
                 </LinearLayout>
@@ -419,7 +418,7 @@
                                   android:layout_width="match_parent"
                                   android:layout_height="wrap_content">
                                   <TextView
-                                      android:textSize="@dimen/x20"
+                                      style="@style/TextBaseSize"
                                       android:text="nr-freq"
                                       android:layout_marginLeft="@dimen/x18"
                                       android:layout_gravity="bottom"
@@ -431,7 +430,7 @@
                                      android:layout_width="wrap_content"
                                      android:layout_height="wrap_content"
                                      android:text="2525.95MHZ"
-                                     android:textSize="@dimen/x18"
+                                     style="@style/TextBaseSize"
                                      android:textColor="#FF022A8F"
                                      android:layout_marginRight="@dimen/x18"
                                      android:gravity="right"
@@ -453,7 +452,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="EARFCN"
                         android:layout_marginLeft="@dimen/x18"
                         android:layout_gravity="bottom"
@@ -471,7 +470,7 @@
                         android:gravity="right"
                         android:text="41 TDD"
                         android:textColor="#FF022A8F"
-                        android:textSize="@dimen/x18" />
+                        style="@style/TextBaseSize" />
                 </LinearLayout>
                 <View
                     android:layout_marginTop="@dimen/dp_10"
@@ -488,7 +487,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="BAND"
                         android:layout_marginLeft="@dimen/x18"
                         android:layout_gravity="bottom"
@@ -501,7 +500,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2228529"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:textColor="#FF022A8F"
                         android:layout_marginRight="@dimen/x18"
                         android:gravity="right"
@@ -546,7 +545,7 @@
                     </ImageView>
                     <TextView
                         android:layout_weight="1"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:text="服务小区"
                         android:textColor="#FF000000"
                         android:layout_marginLeft="@dimen/x6"
@@ -562,7 +561,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="数据网"
                         android:layout_marginLeft="@dimen/x18"
                         android:layout_gravity="bottom"
@@ -575,7 +574,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="NR"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:textColor="#FF022A8F"
                         android:layout_marginRight="@dimen/x18"
                         android:gravity="right"
@@ -596,7 +595,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="小区类型"
                         android:layout_marginLeft="@dimen/x18"
                         android:layout_gravity="bottom"
@@ -609,7 +608,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="NR"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:textColor="#FF022A8F"
                         android:layout_marginRight="@dimen/x18"
                         android:gravity="right"
@@ -631,7 +630,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="nr-pci"
                         android:layout_marginLeft="@dimen/x18"
                         android:layout_gravity="bottom"
@@ -644,7 +643,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="394"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:textColor="#FF022A8F"
                         android:layout_marginRight="@dimen/x18"
                         android:gravity="right"
@@ -672,14 +671,14 @@
                         android:layout_gravity="bottom"
                         android:layout_marginLeft="@dimen/x18"
                         android:text="nr-CI"
-                        android:textSize="@dimen/x20"></TextView>
+                        style="@style/TextBaseSize"></TextView>
                     <TextView
                         android:id="@+id/tv_ci"
                         android:layout_gravity="bottom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4316180481(1053755-1)"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:textColor="#FF022A8F"
                         android:layout_marginRight="@dimen/x18"
                         android:gravity="right"
@@ -701,7 +700,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="nr-arfcn"
                         android:layout_marginLeft="@dimen/x18"
                         android:layout_gravity="bottom"
@@ -717,7 +716,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="504990"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:textColor="#FF022A8F"
                         />
                 </LinearLayout>
@@ -736,7 +735,7 @@
                                   android:layout_width="match_parent"
                                   android:layout_height="wrap_content">
                                   <TextView
-                                      android:textSize="@dimen/x20"
+                                      style="@style/TextBaseSize"
                                       android:text="nr-freq"
                                       android:layout_marginLeft="@dimen/x18"
                                       android:layout_gravity="bottom"
@@ -748,7 +747,7 @@
                                      android:layout_width="wrap_content"
                                      android:layout_height="wrap_content"
                                      android:text="2525.95MHZ"
-                                     android:textSize="@dimen/x18"
+                                     style="@style/TextBaseSize"
                                      android:textColor="#FF022A8F"
                                      android:layout_marginRight="@dimen/x18"
                                      android:gravity="right"
@@ -770,7 +769,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="nr-band"
                         android:layout_marginLeft="@dimen/x18"
                         android:layout_gravity="bottom"
@@ -788,7 +787,7 @@
                         android:gravity="right"
                         android:text="41 TDD"
                         android:textColor="#FF022A8F"
-                        android:textSize="@dimen/x18" />
+                        style="@style/TextBaseSize" />
                 </LinearLayout>
                 <View
                     android:id="@+id/tv_view2"
@@ -807,7 +806,7 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/tv_lacTo"
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="tac"
                         android:layout_marginLeft="@dimen/x18"
                         android:layout_gravity="bottom"
@@ -820,7 +819,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2228529"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:textColor="#FF022A8F"
                         android:layout_marginRight="@dimen/x18"
                         android:gravity="right"
@@ -828,6 +827,7 @@
                         />
                 </LinearLayout>
                 <View
+                    android:visibility="gone"
                     android:id="@+id/tv_view3"
                     android:layout_marginTop="@dimen/dp_10"
                     android:background="#EEEDF6"
@@ -839,13 +839,14 @@
 
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/x9"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/tvLac"
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="lac"
                         android:layout_marginLeft="@dimen/x18"
                         android:layout_gravity="bottom"
@@ -858,7 +859,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2228529"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:textColor="#FF022A8F"
                         android:layout_marginRight="@dimen/x18"
                         android:gravity="right"
@@ -866,6 +867,7 @@
                         />
                 </LinearLayout>
                 <View
+                    android:visibility="gone"
                     android:id="@+id/tv_view_lac"
                     android:layout_marginTop="@dimen/dp_10"
                     android:background="#EEEDF6"
@@ -877,13 +879,14 @@
 
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/x9"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/tv_psc"
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="psc"
                         android:layout_marginLeft="@dimen/x18"
                         android:layout_gravity="bottom"
@@ -896,7 +899,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2228529"
-                        android:textSize="@dimen/x18"
+                        style="@style/TextBaseSize"
                         android:textColor="#FF022A8F"
                         android:layout_marginRight="@dimen/x18"
                         android:gravity="right"
@@ -904,6 +907,7 @@
                         />
                 </LinearLayout>
                 <View
+                    android:visibility="gone"
                     android:id="@+id/tv_view_psc"
                     android:layout_marginTop="@dimen/dp_10"
                     android:background="#EEEDF6"
@@ -939,7 +943,7 @@
                     </ImageView>
                     <TextView
                         android:layout_weight="1"
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="信号强度"
                         android:textColor="#FF000000"
                         android:layout_marginLeft="@dimen/x6"
@@ -954,18 +958,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RelativeLayout
+                        android:id="@+id/Re_si"
                         android:layout_marginLeft="@dimen/x16"
                         android:background="@drawable/base_message_bg_shape"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
                             android:id="@+id/tv_si"
+                            style="@style/TextColorBlack"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="RSSI"
                             android:textSize="@dimen/x7"
                             />
                         <TextView
+                            style="@style/TextColorBlack"
                             android:id="@+id/tv_rssl"
                             android:layout_centerInParent="true"
                             android:layout_below="@+id/tv_si"
@@ -976,11 +983,13 @@
                             />
                     </RelativeLayout>
                     <RelativeLayout
+                        android:id="@+id/Re_rsrp"
                         android:layout_marginLeft="@dimen/x3"
                         android:background="@drawable/base_message_bg_shape"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
+                            style="@style/TextColorBlack"
                             android:id="@+id/tv_si1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -988,6 +997,7 @@
                             android:textSize="@dimen/x7"
                             />
                         <TextView
+                            style="@style/TextColorBlack"
                             android:id="@+id/tv_rsrp"
                             android:layout_centerInParent="true"
                             android:layout_below="@+id/tv_si1"
@@ -998,11 +1008,13 @@
                             />
                     </RelativeLayout>
                     <RelativeLayout
+                        android:id="@+id/Re_RSRQ"
                         android:layout_marginLeft="@dimen/x3"
                         android:background="@drawable/base_message_bg_shape"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
+                            style="@style/TextColorBlack"
                             android:id="@+id/tv_si2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1010,6 +1022,7 @@
                             android:textSize="@dimen/x7"
                             />
                         <TextView
+                            style="@style/TextColorBlack"
                             android:id="@+id/tv_rsrq"
                             android:layout_centerInParent="true"
                             android:layout_below="@+id/tv_si2"
@@ -1019,34 +1032,15 @@
                             android:textSize="@dimen/x9"
                             />
                     </RelativeLayout>
+
                     <RelativeLayout
+                        android:id="@+id/Re_ssRsrp"
                         android:layout_marginLeft="@dimen/x3"
                         android:background="@drawable/base_message_bg_shape"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
-                            android:id="@+id/tv_si3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="SINR"
-                            android:textSize="@dimen/x7"
-                            />
-                        <TextView
-                            android:id="@+id/tv_ssSinr"
-                            android:layout_centerInParent="true"
-                            android:layout_below="@+id/tv_si3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="-63"
-                            android:textSize="@dimen/x9"
-                            />
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_marginLeft="@dimen/x3"
-                        android:background="@drawable/base_message_bg_shape"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <TextView
+                            style="@style/TextColorBlack"
                             android:layout_alignParentTop="true"
                             android:layout_centerInParent="true"
                             android:id="@+id/tv_si4"
@@ -1056,6 +1050,7 @@
                             android:textSize="@dimen/x7"
                             />
                         <TextView
+                            style="@style/TextColorBlack"
                             android:id="@+id/tv_si41"
                             android:layout_below="@+id/tv_si4"
                             android:layout_width="wrap_content"
@@ -1065,6 +1060,7 @@
                             />
 
                         <TextView
+                            style="@style/TextColorBlack"
                             android:id="@+id/tv_ssRSRP"
                             android:layout_centerInParent="true"
                             android:layout_below="@+id/tv_si41"
@@ -1075,11 +1071,13 @@
                             />
                     </RelativeLayout>
                     <RelativeLayout
+                        android:id="@+id/Re_ss_rsrq"
                         android:layout_marginLeft="@dimen/x3"
                         android:background="@drawable/base_message_bg_shape"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
+                            style="@style/TextColorBlack"
                             android:layout_alignParentTop="true"
                             android:layout_centerInParent="true"
                             android:id="@+id/tv_si5"
@@ -1089,6 +1087,7 @@
                             android:textSize="@dimen/x7"
                             />
                         <TextView
+                            style="@style/TextColorBlack"
                             android:id="@+id/tv_si51"
                             android:layout_below="@+id/tv_si5"
                             android:layout_width="wrap_content"
@@ -1097,6 +1096,7 @@
                             android:textSize="@dimen/x7"
                             />
                         <TextView
+                            style="@style/TextColorBlack"
                             android:id="@+id/tv_ssRSRQ"
                             android:layout_centerInParent="true"
                             android:layout_below="@+id/tv_si51"
@@ -1106,7 +1106,32 @@
                             android:textSize="@dimen/x9"
                             />
                     </RelativeLayout>
-
+                    <RelativeLayout
+                        android:layout_gravity="bottom"
+                        android:id="@+id/Re_ss_sinr"
+                        android:layout_marginLeft="@dimen/x3"
+                        android:background="@drawable/base_message_bg_shape"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            style="@style/TextColorBlack"
+                            android:id="@+id/tv_si3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SINR"
+                            android:textSize="@dimen/x7"
+                            />
+                        <TextView
+                            style="@style/TextColorBlack"
+                            android:id="@+id/tv_ssSinr"
+                            android:layout_centerInParent="true"
+                            android:layout_below="@+id/tv_si3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-63"
+                            android:textSize="@dimen/x9"
+                            />
+                    </RelativeLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1139,7 +1164,7 @@
                     </ImageView>
                     <TextView
                         android:layout_weight="1"
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="邻小区"
                         android:textColor="#FF000000"
                         android:layout_marginLeft="@dimen/x6"
@@ -1155,7 +1180,7 @@
                     android:layout_marginTop="@dimen/x25"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler4G"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -1200,7 +1225,7 @@
                     </ImageView>
                     <TextView
                         android:layout_weight="1"
-                        android:textSize="@dimen/x20"
+                        style="@style/TextBaseSize"
                         android:text="邻小区"
                         android:textColor="#FF000000"
                         android:layout_marginLeft="@dimen/x6"
@@ -1215,7 +1240,7 @@
                     android:layout_marginTop="@dimen/x25"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler5G"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

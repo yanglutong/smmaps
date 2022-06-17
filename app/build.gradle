@@ -1,17 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
-    //noinspection GradleCompatible
+    //noinspection GradleCompatible smmapkey sm123456 key0 或者yang
     compileSdkVersion 30
     defaultConfig {
         applicationId "com.sm.smmap.smmap"
         minSdkVersion 19
         //noinspection OldTargetApi
-        targetSdkVersion 30
+        targetSdkVersion 28//基站查询适配rsrp能量值必须将此设置为>=28
 
-        versionCode 27//更新版本
-        versionName "5.0.3"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionCode 28//更新版本
+        versionName "5.0.4"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         multiDexEnabled true
     }
     buildTypes {
@@ -60,64 +60,76 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
 
     }
+    repositories{
+        flatDir{
+            dirs 'libs'
+        }
+    }
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+        //noinspection GradleDependency,GradleCompatible,GradleDynamicVersion
+        implementation 'com.android.support:appcompat-v7:28.0.0'
+        implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+        testImplementation 'junit:junit:4.12'
+        androidTestImplementation 'com.android.support.test:runner:1.0.2'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+        //noinspection GradleDependency,GradleCompatible
+        implementation 'com.android.support:support-v4:28.0.0'
+        /** rxjava **/
+        //noinspection GradleDependency
+        api 'io.reactivex.rxjava2:rxjava:2.0.1'
+        //noinspection GradleDependency
+        api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+        /** retrofit **/
+        //noinspection GradleDependency
+        api 'com.squareup.retrofit2:retrofit:2.1.0'
+        //noinspection GradleDependency
+        api 'com.squareup.retrofit2:converter-gson:2.0.2'
+        //noinspection GradleDependency
+        api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+        /**  okhttp  **/
+        //noinspection GradleDependency
+        api 'com.squareup.okhttp3:okhttp:3.10.0'
+        api 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+
+        implementation 'cn.yc:YCDialogLib:3.6.6'//ios弹出框
+        implementation 'com.mylhyl:circleDialog:2.6.3'
+
+        //noinspection AnnotationProcessorOnCompilePath,GradleDependency
+        implementation 'com.jakewharton:butterknife:9.0.0'//绑定view
+
+        //noinspection GradleDependency
+        api 'com.github.bumptech.glide:glide:3.7.0'
+        implementation 'me.jessyan:autosize:1.1.2'//今日头条适配
+        api 'com.j256.ormlite:ormlite-android:5.0'//数据库 ormlite
+        implementation 'com.qianwen:update-app:3.5.2'
+        implementation 'com.lzy.net:okgo:3.0.4'
+        implementation 'com.qianwen:okhttp-utils:3.8.0'
+        implementation 'com.blankj:utilcode:1.22.10'// 工具类
+        implementation 'ch.ielse:switchbutton:1.0.1'
+        //noinspection GradleDependency,GradleCompatible
+        implementation 'com.android.support:recyclerview-v7:27.0.0'
+//    implementation 'cn.imlibo:FilePicker:v0.0.5_alpha'
+//    implementation project(':filepicker')
+        implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+        //noinspection GradleDependency
+        implementation 'com.github.bumptech.glide:glide:4.6.1'
+        implementation 'org.greenrobot:eventbus:3.1.1'
+        //noinspection GradleCompatible
+        implementation 'com.android.support:design:27.1.1'
+        //noinspection GradleDependency
+        implementation 'top.zibin:Luban:1.1.3'
+        implementation 'com.yanzhenjie:permission:2.0.0-rc2'
+        implementation 'com.leon:lfilepickerlibrary:1.8.0'
+        implementation files('libs/jxl.jar')
+        implementation (name:'NaviTts',ext:'aar')
+        implementation (name:'onsdk_all',ext:'aar')
+        implementation (name:'BaiduPanoSDK',ext:'aar')
+            //新版本使用implementation关键字，旧版本请使用compile 'com.android.support:multidex:1.0.1'
+            implementation 'com.android.support:multidex:1.0.1'
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //noinspection GradleDependency,GradleCompatible,GradleDynamicVersion
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    //noinspection GradleDependency,GradleCompatible
-    implementation 'com.android.support:support-v4:28.0.0'
-    /** rxjava **/
-    //noinspection GradleDependency
-    api 'io.reactivex.rxjava2:rxjava:2.0.1'
-    //noinspection GradleDependency
-    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    /** retrofit **/
-    //noinspection GradleDependency
-    api 'com.squareup.retrofit2:retrofit:2.1.0'
-    //noinspection GradleDependency
-    api 'com.squareup.retrofit2:converter-gson:2.0.2'
-    //noinspection GradleDependency
-    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    /**  okhttp  **/
-    //noinspection GradleDependency
-    api 'com.squareup.okhttp3:okhttp:3.10.0'
-    api 'com.squareup.okhttp3:logging-interceptor:3.5.0'
-
-    implementation 'cn.yc:YCDialogLib:3.6.6'//ios弹出框
-    implementation 'com.mylhyl:circleDialog:2.6.3'
-
-    //noinspection AnnotationProcessorOnCompilePath,GradleDependency
-    implementation 'com.jakewharton:butterknife:9.0.0'//绑定view
-
-    //noinspection GradleDependency
-    api 'com.github.bumptech.glide:glide:3.7.0'
-    implementation 'me.jessyan:autosize:1.1.2'//今日头条适配
-    api 'com.j256.ormlite:ormlite-android:5.0'//数据库 ormlite
-    implementation 'com.qianwen:update-app:3.5.2'
-    implementation 'com.lzy.net:okgo:3.0.4'
-    implementation 'com.qianwen:okhttp-utils:3.8.0'
-    implementation 'com.blankj:utilcode:1.22.10'//工具类
-    implementation 'ch.ielse:switchbutton:1.0.1'
-    //noinspection GradleDependency,GradleCompatible
-    implementation 'com.android.support:recyclerview-v7:27.0.0'
-//    implementation 'cn.imlibo:FilePicker:v0.0.5_alpha'
-//    implementation project(':filepicker')
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
-    //noinspection GradleDependency
-    implementation 'com.github.bumptech.glide:glide:4.6.1'
-    implementation 'org.greenrobot:eventbus:3.1.1'
-    //noinspection GradleCompatible
-    implementation 'com.android.support:design:27.1.1'
-    //noinspection GradleDependency
-    implementation 'top.zibin:Luban:1.1.3'
-    implementation 'com.yanzhenjie:permission:2.0.0-rc2'
-    implementation 'com.leon:lfilepickerlibrary:1.8.0'
-    implementation files('libs/jxl.jar')
-
+    implementation files('libs\\BaiduLBS_Android.jar')
 }

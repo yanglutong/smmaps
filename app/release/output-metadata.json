@@ -11,10 +11,10 @@
       "type": "SINGLE",
       "filters": [],
       "properties": [],
-      "versionCode": 27,
-      "versionName": "5.0.3",
+      "versionCode": 28,
+      "versionName": "5.0.4",
       "enabled": true,
-      "outputFile": "com.sm.smmap.smmap_v5.0.3_27-release_2021-04-28-15-43.apk"
+      "outputFile": "com.sm.smmap.smmap_v5.0.4_28-release_2022-05-06-10-44.apk"
     }
   ]
 }

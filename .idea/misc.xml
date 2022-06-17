@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/code/smmap/smmap3/smmap/app/src/main/res/layout/activity_location.xml" value="0.190234375" />
+        <entry key="..\:/code/smmap/smmap3/smmap/app/src/main/res/layout/item_dibushow.xml" value="0.176" />
+        <entry key="..\:/code/smmap/smmap3/smmap/app/src/main/res/layout/item_dibushow2.xml" value="0.190234375" />
+        <entry key="..\:/code/smmap/smmap3/smmap/app/src/main/res/layout/item_dibushow_config.xml" value="0.190234375" />
+        <entry key="..\:/code/smmap/smmap3/smmap/app/src/main/res/layout/item_dibushowdaohao.xml" value="0.190234375" />
+      </map>
+    </option>
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />
@@ -54,7 +65,7 @@
   <component name="SvnBranchConfigurationManager">
     <option name="myConfigurationMap">
       <map>
-        <entry key="G:/smyf/android">
+        <entry key="$PROJECT_DIR$/../../../../smyf/android">
           <value>
             <SvnBranchConfiguration>
               <option name="trunkUrl" value="https://sk-20210409hxsx/svn/smyf/android" />

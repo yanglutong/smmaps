@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 import com.baidu.lbsapi.BMapManager;
 import com.baidu.lbsapi.panoramaview.PanoramaView;
 
-import static android.support.constraint.Constraints.TAG;
+
 
 public class PanoramaDemoActivityMain extends Activity {
     private PanoramaView mPanoView;
@@ -57,7 +56,7 @@ public class PanoramaDemoActivityMain extends Activity {
                 mPanoView.setPanorama(v2, v1, PanoramaView.COORDTYPE_BD09LL);
                 mPanoView.setShowTopoLink(false);
             } catch (Exception e) {
-                Log.d(TAG, "PanoramaDemoActivityMainonCreate: " + e.getMessage());
+                Log.d("TAG", "PanoramaDemoActivityMainonCreate: " + e.getMessage());
             }
         }
 

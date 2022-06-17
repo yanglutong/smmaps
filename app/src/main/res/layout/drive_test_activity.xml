@@ -1130,7 +1130,7 @@
                     android:layout_marginTop="@dimen/x25"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler4G"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -1190,7 +1190,7 @@
                     android:layout_marginTop="@dimen/x25"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler5G"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

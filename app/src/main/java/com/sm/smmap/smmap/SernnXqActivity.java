@@ -3,15 +3,14 @@ package com.sm.smmap.smmap;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -28,17 +27,11 @@ import android.widget.Toast;
 
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.CoordinateConverter;
-import com.sm.smmap.smmap.Adapter.DemoAdapter;
-import com.sm.smmap.smmap.Adapter.DemoAdapteradd;
-import com.sm.smmap.smmap.Adapter.SerrnAdapter;
 import com.sm.smmap.smmap.Adapter.SerrnTaAdapter;
-import com.sm.smmap.smmap.It.Mycallback;
 import com.sm.smmap.smmap.OrmSqlLite.Bean.GuijiViewBeanjizhan;
 import com.sm.smmap.smmap.OrmSqlLite.DBManagerJZ;
 import com.sm.smmap.smmap.Utils.It.IT.CallBack;
 import com.sm.smmap.smmap.Utils.MyUtils;
-
-import org.w3c.dom.Text;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

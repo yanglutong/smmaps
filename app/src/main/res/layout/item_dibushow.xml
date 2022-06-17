@@ -59,7 +59,7 @@
                 android:layout_marginLeft="5dp"
                 android:textSize="12dp"
 
-                android:text="电信4G基站" />
+                android:text="电信基站" />
 
             <CheckBox
                 android:id="@+id/rb_bdjzl"
@@ -133,6 +133,7 @@
                 android:text="公开数据2" />-->
 
             <RadioButton
+                android:visibility="gone"
                 android:id="@+id/rb_oneself"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -443,7 +444,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recylerview"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"

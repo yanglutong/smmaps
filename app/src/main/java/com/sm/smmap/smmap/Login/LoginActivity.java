@@ -5,17 +5,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Handler;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -24,21 +22,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.mapapi.CoordType;
-import com.baidu.mapapi.SDKInitializer;
-import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.geocode.GeoCoder;
-import com.baidu.mapapi.utils.DistanceUtil;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.google.gson.Gson;
 import com.sm.smmap.smmap.Bean.DataBean;
 import com.sm.smmap.smmap.MainActivity;
-import com.sm.smmap.smmap.OrmSqlLite.DBManagerGuijiView;
-import com.sm.smmap.smmap.OrmSqlLite.DBManagerJZ;
 import com.sm.smmap.smmap.R;
-import com.sm.smmap.smmap.Retrofit.Bean.JzGetData;
 import com.sm.smmap.smmap.Retrofit.RetrofitFactory;
 import com.sm.smmap.smmap.Utils.ACacheUtil;
 import com.sm.smmap.smmap.Utils.MyToast;
@@ -46,7 +35,6 @@ import com.sm.smmap.smmap.Utils.MyUtils;
 import com.sm.smmap.smmap.Utils.ViewLoading;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -73,7 +61,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         et_user.setText(namesp);
         et_pwd.setText(pswsp);
         String appVersionName = AppUtils.getAppVersionName();
-        tv_version.setText("测试版版本:" + appVersionName + "");
+//        tv_version.setText("测试版版本:" + appVersionName + "");
     }
 
     @SuppressLint("NewApi")
@@ -106,10 +94,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_login2);
-
         getData();
         setStatBar();
-
         findViews();
       /*  et_user.setText("admin");
         et_user.setText("admin");*/
@@ -222,6 +208,11 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
                         /*用于判断当前用户是否在有效期内*/
                         if(timeBean!=null){//获取服务器日期与当前日期进行对比如果超出日期用户不可使用
+                            if(loginBena.getData()== null || loginBena.getData().getDeadline() == null){
+                                ViewLoading.dismiss(LoginActivity.this);
+                                Toast.makeText(LoginActivity.this, "登录失败，请重新登录", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                             String editTime = loginBena.getData().getDeadline();//服务器日期
                             String sysTime1 = timeBean.getSysTime2();
 

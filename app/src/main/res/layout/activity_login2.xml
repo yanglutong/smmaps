@@ -103,16 +103,15 @@
         android:textSize="20dp" />
 
     <TextView
-        android:background="@color/gray_black"
         android:textSize="15dp"
         android:layout_marginTop="40dp"
         android:gravity="center"
         android:layout_below="@+id/bt_login"
-        android:textColor="@color/hui"
+        android:textColor="@color/gray_black"
         android:id="@+id/tv_version"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tvversion" />
+        android:text="本系统可适配于Android12及以下版本" />
 
     <TextView
         android:layout_width="match_parent"

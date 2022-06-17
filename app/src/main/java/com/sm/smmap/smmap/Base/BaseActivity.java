@@ -3,14 +3,12 @@ package com.sm.smmap.smmap.Base;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.core.content.ContextCompat;
 import android.view.View;
-import android.widget.Toast;
 
 import com.pedaily.yc.ycdialoglib.utils.DialogUtils;
 import com.sm.smmap.smmap.Retrofit.ActivityManager;

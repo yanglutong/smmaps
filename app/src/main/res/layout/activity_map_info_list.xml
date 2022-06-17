@@ -46,6 +46,7 @@
         android:orientation="horizontal">
 
         <TextView
+            style="@style/TextColorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
@@ -54,6 +55,7 @@
             android:textStyle="bold" />
 
         <TextView
+            style="@style/TextColorBlack"
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,6 +71,7 @@
         android:orientation="horizontal">
 
         <TextView
+            style="@style/TextColorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
@@ -77,6 +80,7 @@
             android:textStyle="bold" />
 
         <TextView
+            style="@style/TextColorBlack"
             android:id="@+id/tv_fugai"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -119,6 +123,7 @@
             android:orientation="horizontal">
 
             <TextView
+                style="@style/TextColorBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
@@ -127,6 +132,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                style="@style/TextColorBlack"
                 android:id="@+id/tv_mnc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -141,6 +147,7 @@
             android:orientation="horizontal">
 
             <TextView
+                style="@style/TextColorBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
@@ -149,6 +156,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                style="@style/TextColorBlack"
                 android:id="@+id/tv_lac"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -164,6 +172,7 @@
             android:orientation="horizontal">
 
             <TextView
+                style="@style/TextColorBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
@@ -172,6 +181,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                style="@style/TextColorBlack"
                 android:id="@+id/tv_cid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -278,6 +288,7 @@
         android:orientation="horizontal">
 
         <TextView
+            style="@style/TextColorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
@@ -286,8 +297,9 @@
             android:textStyle="bold" />
 
         <TextView
+            style="@style/TextColorBlack"
             android:id="@+id/tv_address"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="004"
             android:textSize="15dp" />
@@ -301,6 +313,7 @@
         android:orientation="horizontal">
 
         <TextView
+            style="@style/TextColorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
@@ -309,6 +322,7 @@
             android:textStyle="bold" />
 
         <TextView
+            style="@style/TextColorBlack"
             android:id="@+id/tv_lat_lon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -323,6 +337,7 @@
         android:orientation="horizontal">
 
         <TextView
+            style="@style/TextColorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
@@ -331,6 +346,7 @@
             android:textStyle="bold" />
 
         <TextView
+            style="@style/TextColorBlack"
             android:id="@+id/tv_resources"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -347,9 +363,9 @@
 
         <ImageButton
             android:id="@+id/bt_openMap"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="clip_horizontal"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="center"
             android:background="@mipmap/daohangs"
             android:text="导航"
             android:textSize="12dp"
@@ -357,18 +373,18 @@
 
         <Button
             android:id="@+id/bt_quanjing"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="clip_horizontal"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="center"
             android:background="@mipmap/jiejing"
             android:textColor="@color/white"
             android:textSize="12dp" />
 
         <Button
             android:id="@+id/bt_m_location"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="clip_horizontal"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="center"
             android:background="@mipmap/baojinglan1"
             android:textColor="@color/white"
             android:textSize="12dp"
@@ -377,9 +393,9 @@
 
         <Button
             android:id="@+id/bt_taset"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="clip_horizontal"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="center"
             android:background="@mipmap/tazhidata"
             android:textColor="@color/white"
             android:textSize="12dp"
@@ -387,9 +403,9 @@
 
         <Button
             android:id="@+id/bt_show"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="clip_horizontal"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:background="@mipmap/mlocation0"
             android:textColor="@color/white"
@@ -398,9 +414,9 @@
 
         <Button
             android:id="@+id/bt_m_dele"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="clip_horizontal"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="center"
             android:background="@mipmap/mdele"
             android:textColor="@color/white"
             android:textSize="12dp"

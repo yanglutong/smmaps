@@ -22,13 +22,9 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.FragmentActivity;
+
 import android.os.Bundle;
-import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -50,6 +46,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
@@ -120,8 +123,8 @@ import com.sm.smmap.smmap.Utils.NotificationUtils;
 import com.sm.smmap.smmap.Utils.ViewLoading;
 import com.sm.smmap.smmap.introduce.introduceActivity;
 import com.sm.smmap.smmap.lte_nr.BaseNrLteActivity;
-import com.sm.smmap.smmap.lte_nr.BaseNrLteActivity2;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -130,24 +133,32 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.TreeMap;
 
 import me.jessyan.autosize.internal.CancelAdapt;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.ContentValues.TAG;
 import static com.baidu.mapapi.utils.CoordinateConverter.CoordType.BD09LL;
 import static com.sm.smmap.smmap.Constant.CmainAcitvity.MAXTA;
 import static com.sm.smmap.smmap.Constant.CmainAcitvity.MINTA;
 import static com.sm.smmap.smmap.Constant.CmainAcitvity.UNIFORMTA;
+import static com.sm.smmap.smmap.Retrofit.MyURL.appKey;
+import static com.sm.smmap.smmap.Retrofit.MyURL.getBaseUrl;
+import static com.sm.smmap.smmap.Retrofit.MyURL.getBaseUrl3;
 import static com.sm.smmap.smmap.Utils.MyUtils.getPermissions;
 
 public class MainActivity extends FragmentActivity implements SensorEventListener, View.OnClickListener, PopupMenu.OnMenuItemClickListener, CancelAdapt {
     private int anInt;//用于区分运营商参数
     JzGetData jzGetData;
     double add;
-    int DATATYPE = 6;
+    int DATATYPE = 1;
     public static int BUSINESS = 0;//选择的运营商
     private List<Double> list = new ArrayList<>();
     private List<Double> list2 = new ArrayList<>();//巡视列表的Ta 添加
@@ -707,6 +718,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
         // 地图初始化
         MyUtils.getPermissions(this);//获取权限
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        LocationClient.setAgreePrivacy(true);//同意用户隐私政策
         SDKInitializer.initialize(getApplicationContext());
         //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
@@ -852,7 +864,12 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
 ////
         // 地图初始化
         MyUtils.getPermissions(this);//获取权限
-        findView();//View初始化
+        try {
+            findView();//View初始化
+        } catch (Exception e) {
+            Log.e("TAG_onRestart", "findView: "+e.getMessage() );
+            e.printStackTrace();
+        }
         initMap();
 //        initdatas();//查询数据库数据
         initdatas2();
@@ -974,7 +991,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
 
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public boolean onMapPoiClick(MapPoi mapPoi) {
+            public void onMapPoiClick(MapPoi mapPoi) {
                 if (juliFlage == true) {
                     DecimalFormat df = new DecimalFormat(".#");
                     LatLng latLng = new LatLng(mapPoi.getPosition().latitude, mapPoi.getPosition().longitude);
@@ -1046,7 +1063,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                     mBaiduMap.addOverlay(option);
                 }
 
-                return false;
+//                return false;
             }
         });
 
@@ -1791,35 +1808,37 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
 
     private void initTTS() {
         //实例化自带语音对象
-        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status == textToSpeech.SUCCESS) {
-                    // Toast.makeText(MainActivity.this,"成功输出语音",
-                    // Toast.LENGTH_SHORT).show();
-                    // Locale loc1=new Locale("us");
-                    // Locale loc2=new Locale("china");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+            textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int status) {
+                    if (status == textToSpeech.SUCCESS) {
+                        // Toast.makeText(MainActivity.this,"成功输出语音",
+                        // Toast.LENGTH_SHORT).show();
+                        // Locale loc1=new Locale("us");
+                        // Locale loc2=new Locale("china");
 
-                    textToSpeech.setPitch(1.0f);//方法用来控制音调
-                    textToSpeech.setSpeechRate(1.0f);//用来控制语速
+                        textToSpeech.setPitch(1.0f);//方法用来控制音调
+                        textToSpeech.setSpeechRate(1.0f);//用来控制语速
 
-                    //判断是否支持下面两种语言
-                    int result1 = textToSpeech.setLanguage(Locale.US);
-                    int result2 = textToSpeech.setLanguage(Locale.
-                            SIMPLIFIED_CHINESE);
-                    boolean a = (result1 == TextToSpeech.LANG_MISSING_DATA || result1 == TextToSpeech.LANG_NOT_SUPPORTED);
-                    boolean b = (result2 == TextToSpeech.LANG_MISSING_DATA || result2 == TextToSpeech.LANG_NOT_SUPPORTED);
+                        //判断是否支持下面两种语言
+                        int result1 = textToSpeech.setLanguage(Locale.US);
+                        int result2 = textToSpeech.setLanguage(Locale.
+                                SIMPLIFIED_CHINESE);
+                        boolean a = (result1 == TextToSpeech.LANG_MISSING_DATA || result1 == TextToSpeech.LANG_NOT_SUPPORTED);
+                        boolean b = (result2 == TextToSpeech.LANG_MISSING_DATA || result2 == TextToSpeech.LANG_NOT_SUPPORTED);
 
-                    Log.i("zhh_tts", "US支持否？--》" + a +
-                            "\nzh-CN支持否》--》" + b);
+                        Log.i("zhh_tts", "US支持否？--》" + a +
+                                "\nzh-CN支持否》--》" + b);
 
-                } else {
-                    MyToast.showToast("数据丢失或不支持");
-//                    Toast.makeText(MainActivity.this, "数据丢失或不支持", Toast.LENGTH_SHORT).show();
+                    } else {
+                        MyToast.showToast("数据丢失或不支持");
+                        //                    Toast.makeText(MainActivity.this, "数据丢失或不支持", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
-
-            }
-        });
+            });
+        }
     }
 
     private void startAuto(String data) {
@@ -1834,6 +1853,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setMapMakerView(final Marker marker) {
+        Log.e("yltddddd", "setMapMakerView: ");
         final Bundle extraInfo = marker.getExtraInfo();
         if (!TextUtils.isEmpty(extraInfo.getString("address"))) {
             String address = extraInfo.getString("address");
@@ -2206,7 +2226,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    private void findView() {
+    private void findView() throws Exception {
         bt_jizhan = findViewById(R.id.bt_jizhan);
         bt_jizhan.setOnClickListener(this);//基站的监听
         bt_qiehuan = findViewById(R.id.bt_qiehuan);
@@ -2484,6 +2504,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                 if(jizhanFlag==4){
                     if(TextUtils.isEmpty(et_sid.getText().toString())){
                         MyToast.showToast("Sid不能为空");
+                        break;
                     }
                 }
 
@@ -2492,11 +2513,9 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
 //                    break;
 //                }
                 if (list.size() > 0) {
-
                 } else {
                     list.add(0.0);
 //                    MyToast.showToast("请添加至少一个TA值");
-                    break;
                 }
                 //是否有类型未选中
                 if (rb_yidong.isChecked() == false && rb_liantong.isChecked() == false && rb_ldainxin4.isChecked() == false && rb_cdma.isChecked() == false && rb_bdjz1.isChecked() == false && rb_bdjz2.isChecked() == false) {
@@ -2511,7 +2530,6 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                     Log.d("2ilssDetail144", "onClick: ");
 //
                 }
-
                 break;
             case R.id.iv_finish:
                 dialog.dismiss();
@@ -2542,7 +2560,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                 break;
             case R.id.ll_gjview://轨迹动画演示
 //                Toast.makeText(MainActivity.this, "你点击了轨迹记录", Toast.LENGTH_LONG).show();
-                if (guijiFlag == false) {
+                if (guijiFlag == false) {//轨迹显示标识
                     if (jingbaoflag == true) {
                         MyToast.showToast("请先关闭报警");
                         break;
@@ -2579,9 +2597,10 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                     if (timer != null) {
                         timer.cancel();
                     }
-
                     initdatas2();
                 }
+
+
                 break;
             case R.id.ll_gjclear:
                 if (guijiFlag == true) {
@@ -2589,7 +2608,6 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                     MyToast.showToast("请先关闭显示");
                     break;
                 }
-//                Toast.makeText(MainActivity.this, "你点击了轨迹清空", Toast.LENGTH_LONG).show();
                 new CircleDialog.Builder()
                         .setTitle("")
                         .setText("确定要清空轨迹记录吗")
@@ -2597,7 +2615,6 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                         .setNegative("确定", new Positiv(2))
                         .setPositive("取消", null)
                         .show(getSupportFragmentManager());
-
                 break;
 
             case R.id.bt_uiceliangclear:
@@ -2882,7 +2899,6 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
     private void setmapJuli() {
         if (jingbaoflag == false) {
             if (guijiFlag == true) {
-
                 MyToast.showToast("请先关闭显示");
                 return;
             }
@@ -2965,18 +2981,193 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
             mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
         }
         Log.d(TAG, "qiehuan: " + mapType);
-
         Log.d(TAG, "qiehuan: " + mapType);
     }
 
     //发送查询基站请求
     private void sendPost() {
-        if(DATATYPE==6){//阿里云数据查询
+//        if(DATATYPE==6){
+//            //阿里云数据查询
+////            sendMax();
+//            String key = "APPCODE eb358bdc0f28475e95ccbe24eb2e5ee7";
+//            Log.d(TAG, "sendPostjizhanFlag:" + jizhanFlag);
+//            int Flag;
+//            if (jizhanFlag == 4) {
+//                Flag = Integer.parseInt(et_sid.getText().toString());
+//            } else {
+//                Flag = jizhanFlag;
+//            }
+//            MyUtils.getNumber(ACacheUtil.getID());//次数更新
+//            dialog.dismiss();
+//
+//
+//            if(jizhanFlag==4||jizhanFlag==11){//判断当前是电信4G或是2G基站
+//                Call<DataAliBean> call = RetrofitFactory.getInstence().API().GETBaseStationAliCdm(Flag, Integer.parseInt(et_taclac.getText().toString()), Integer.parseInt(et_eci.getText().toString()), key, "application/json; charset=UTF-8");
+//                call.enqueue(new Callback<DataAliBean>() {
+//                    @Override
+//                    public void onResponse(Call<DataAliBean> call, Response<DataAliBean> response) {
+//                        dataAliBean = response.body();
+//                        Log.d("杨路通", "nzqonResponse: " + response.toString());
+//                        if (dataAliBean!=null){
+//                            if (dataAliBean.getMsg().equals("ok") && dataAliBean.getStatus() == 0) {
+//                                try {
+//                                    String latresult = dataAliBean.getResult().getLat();
+//                                    String lonresult = dataAliBean.getResult().getLng();
+//                                    LatLng latLngresult = new LatLng(Double.parseDouble(latresult), Double.parseDouble(lonresult));
+//                                    Log.d("杨路通", "dataBeanisShowjizhan: " + dataAliBean.getResult());
+//                                    CoordinateConverter converter = new CoordinateConverter()
+//                                            .from(CoordinateConverter.CoordType.GPS)
+//                                            .coord(latLngresult);
+//
+//                                    //转换坐标
+//                                    LatLng desLatLngBaidu = converter.convert();
+//                                    GuijiViewBeanjizhan d = new GuijiViewBeanjizhan();
+//
+//                                    if(jizhanFlag==4){
+//                                        d.setSid(et_sid.getText().toString());
+//                                    }else{
+//                                        d.setSid("");
+//                                    }
+//                                    d.setTypes("");
+//                                    d.setBand("");
+//                                    d.setPci("");
+//                                    d.setDown("");
+//                                    d.setId(1);
+//                                    d.setAddress(dataAliBean.getResult().getAddr());
+//                                    d.setCi(et_eci.getText().toString());
+//                                    d.setLac(et_taclac.getText().toString());
+//                                    d.setMcc("460");
+//                                    if(jizhanFlag==4){
+//                                        d.setMnc(et_sid.getText().toString());
+//                                    }else{
+//                                        d.setMnc("11");
+//                                    }
+//                                    d.setRadius("0");//阿里的数据源半徑為0
+//                                    d.setTa(MyUtils.listToString(list));
+//                                    d.setType(0);
+//                                    d.setLat(String.valueOf(desLatLngBaidu.latitude));
+//                                    d.setLon(String.valueOf(desLatLngBaidu.longitude));
+//                                    d.setResources("公开数据");
+//                                    int i = dbManagerJZ.insertStudent(d);
+//                                    MapStatus.Builder builder = new MapStatus.Builder();
+//                                    builder.target(new LatLng(desLatLngBaidu.latitude, desLatLngBaidu.longitude)).zoom(18.0f);
+//                                    mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+//                                    initdatas();
+//                                    list.clear();
+//                                    dialog.dismiss();
+//                                    isShowAliJz(true);//展示阿里基站
+//                                } catch (SQLException e) {
+//                                    e.printStackTrace();
+//                                    Log.d(TAG, "resultBeansonResponse1: " + e.getMessage());
+//                                }
+//
+//                            }else if(dataAliBean.getMsg().equals("没有信息")){
+////                                MyToast.showToast("查询不到该基站信息使用聚合查询");
+//                                //如果阿里的移动联通获取不到数据用聚合
+//                                getJuHeData();
+////                                 dialog.dismiss();
+//                            }
+//                        }else {
+////                            MyToast.showToast("请求阿里接口失败使用聚合查询");
+//                            getJuHeData();//接口请求失败用聚合
+////                                dialog.dismiss();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<DataAliBean> call, Throwable t) {
+//
+//                    }
+//                });
+//            }else{//移动联通基站查询
+//                try {
+//                    RetrofitFactory.getInstence().API().GETBaseStationAli(Flag, Integer.parseInt(et_taclac.getText().toString()), Integer.parseInt(et_eci.getText().toString()),key, "application/json; charset=UTF-8").enqueue(new Callback<DataAliBean>() {
+//                        @Override
+//                        public void onResponse(Call<DataAliBean> call, Response<DataAliBean> response) {
+//                            dataAliBean = response.body();
+//                            Log.d("杨路通", "nzqonResponse: " + response.toString());
+//                            if (dataAliBean!=null){
+//                                if (dataAliBean.getMsg().equals("ok") && dataAliBean.getStatus() == 0) {
+//                                    try {
+//                                        String latresult = dataAliBean.getResult().getLat();
+//                                        String lonresult = dataAliBean.getResult().getLng();
+//                                        LatLng latLngresult = new LatLng(Double.parseDouble(latresult), Double.parseDouble(lonresult));
+//                                        Log.d("杨路通", "dataBeanisShowjizhan: " + dataAliBean.getResult());
+//                                        CoordinateConverter converter = new CoordinateConverter()
+//                                                .from(CoordinateConverter.CoordType.GPS)
+//                                                .coord(latLngresult);
+//                                        //转换坐标
+//                                        LatLng desLatLngBaidu = converter.convert();
+//                                        GuijiViewBeanjizhan d = new GuijiViewBeanjizhan();
+//                                        if (jizhanFlag == 0||jizhanFlag==1) {
+//                                            d.setSid("");
+//                                        }
+//                                        d.setTypes("");
+//                                        d.setBand("");
+//                                        d.setPci("");
+//                                        d.setDown("");
+//                                        d.setId(1);
+//                                        d.setAddress(dataAliBean.getResult().getAddr());
+//                                        d.setCi(et_eci.getText().toString());
+//                                        d.setLac(et_taclac.getText().toString());
+//                                        if(Flag==0){//查询移动
+//                                            d.setMcc("460");
+//                                            d.setMnc("0");
+//                                        }
+//                                        if(Flag==1){//查询联通基站
+//                                            d.setMcc("460");
+//                                            d.setMnc("1");
+//                                        }
+//                                        d.setRadius("0");//阿里的数据源半徑為0
+//                                        Log.d("杨路通", "onResponse:list" + list);
+//                                        d.setTa(MyUtils.listToString(list));
+//                                        d.setType(0);
+//                                        d.setLat(String.valueOf(desLatLngBaidu.latitude));
+//                                        d.setLon(String.valueOf(desLatLngBaidu.longitude));
+//                                        d.setResources("公开数据");
+//                                        int i = dbManagerJZ.insertStudent(d);
+//                                        MapStatus.Builder builder = new MapStatus.Builder();
+//                                        builder.target(new LatLng(desLatLngBaidu.latitude, desLatLngBaidu.longitude)).zoom(18.0f);
+//                                        mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+//                                        initdatas();
+//                                        list.clear();
+//                                        dialog.dismiss();
+//                                        isShowAliJz(true);//展示阿里基站
+//                                    } catch (SQLException e) {
+//                                        e.printStackTrace();
+//                                        Log.d(TAG, "resultBeansonResponse1: " + e.getMessage());
+//                                    }
+//                                }else if(dataAliBean.getMsg().equals("没有信息")){
+////                                    MyToast.showToast("查询不到该基站信息使用聚合查询");
+//                                    //如果阿里的移动联通获取不到数据用聚合
+//                                    getJuHeData();
+////                                    dialog.dismiss();
+//                                }
+//
+//                            }else {
+////                                MyToast.showToast("请求阿里接口失败使用聚合查询");
+//                                getJuHeData();//接口请求失败用聚合
+////                                dialog.dismiss();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<DataAliBean> call, Throwable t) {
+//                            Log.d("杨路通", "nzqonResponse: " + t.getMessage());
+//                        }
+//                    });
+//                } catch (Exception e) {
+//                    MyToast.showToast("输入异常请检查输入信息是否有误");
+//                }
+//            }
+////            Toast.makeText(MainActivity.this, "阿里云数据", Toast.LENGTH_SHORT).show();
+//        }
+        if(DATATYPE==1){
+            //cellMap
 //            sendMax();
-            String key = "APPCODE eb358bdc0f28475e95ccbe24eb2e5ee7";
-            Log.d(TAG, "sendPostjizhanFlag:" + jizhanFlag);
             int Flag;
             if (jizhanFlag == 4) {
+                Log.e(TAG, "sendPost: "+et_sid.getText().toString() );
                 Flag = Integer.parseInt(et_sid.getText().toString());
             } else {
                 Flag = jizhanFlag;
@@ -2984,169 +3175,181 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
             MyUtils.getNumber(ACacheUtil.getID());//次数更新
             dialog.dismiss();
 
-
-            if(jizhanFlag==4||jizhanFlag==11){//判断当前是电信4G或是2G基站
-                Call<DataAliBean> call = RetrofitFactory.getInstence().API().GETBaseStationAliCdm(Flag, Integer.parseInt(et_taclac.getText().toString()), Integer.parseInt(et_eci.getText().toString()), key, "application/json; charset=UTF-8");
-                call.enqueue(new Callback<DataAliBean>() {
-                    @Override
-                    public void onResponse(Call<DataAliBean> call, Response<DataAliBean> response) {
-                        dataAliBean = response.body();
-                        Log.d("杨路通", "nzqonResponse: " + response.toString());
-                        if (dataAliBean!=null){
-                            if (dataAliBean.getMsg().equals("ok") && dataAliBean.getStatus() == 0) {
-                                try {
-                                    String latresult = dataAliBean.getResult().getLat();
-                                    String lonresult = dataAliBean.getResult().getLng();
-                                    LatLng latLngresult = new LatLng(Double.parseDouble(latresult), Double.parseDouble(lonresult));
-                                    Log.d("杨路通", "dataBeanisShowjizhan: " + dataAliBean.getResult());
-                                    CoordinateConverter converter = new CoordinateConverter()
-                                            .from(CoordinateConverter.CoordType.GPS)
-                                            .coord(latLngresult);
-
-                                    //转换坐标
-                                    LatLng desLatLngBaidu = converter.convert();
-                                    GuijiViewBeanjizhan d = new GuijiViewBeanjizhan();
-
-                                    if(jizhanFlag==4){
-                                        d.setSid(et_sid.getText().toString());
-                                    }else{
-                                        d.setSid("");
-                                    }
-                                    d.setTypes("");
-                                    d.setBand("");
-                                    d.setPci("");
-                                    d.setDown("");
-                                    d.setId(1);
-                                    d.setAddress(dataAliBean.getResult().getAddr());
-                                    d.setCi(et_eci.getText().toString());
-                                    d.setLac(et_taclac.getText().toString());
-                                    d.setMcc("460");
-                                    if(jizhanFlag==4){
-                                        d.setMnc(et_sid.getText().toString());
-                                    }else{
-                                        d.setMnc("11");
-                                    }
-                                    d.setRadius("0");//阿里的数据源半徑為0
-                                    d.setTa(MyUtils.listToString(list));
-                                    d.setType(0);
-                                    d.setLat(String.valueOf(desLatLngBaidu.latitude));
-                                    d.setLon(String.valueOf(desLatLngBaidu.longitude));
-                                    d.setResources("公开数据");
-                                    int i = dbManagerJZ.insertStudent(d);
-                                    MapStatus.Builder builder = new MapStatus.Builder();
-                                    builder.target(new LatLng(desLatLngBaidu.latitude, desLatLngBaidu.longitude)).zoom(18.0f);
-                                    mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-                                    initdatas();
-                                    list.clear();
-                                    dialog.dismiss();
-                                    isShowAliJz(true);//展示阿里基站
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                    Log.d(TAG, "resultBeansonResponse1: " + e.getMessage());
-                                }
-
-                            }else if(dataAliBean.getMsg().equals("没有信息")){
-//                                MyToast.showToast("查询不到该基站信息使用聚合查询");
-                                //如果阿里的移动联通获取不到数据用聚合
-                                getJuHeData();
-//                                 dialog.dismiss();
-                            }
-                        }else {
-//                            MyToast.showToast("请求阿里接口失败使用聚合查询");
-                            getJuHeData();//接口请求失败用聚合
-//                                dialog.dismiss();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<DataAliBean> call, Throwable t) {
-
-                    }
-                });
-            }else{//移动联通基站查询
-                try {
-                    RetrofitFactory.getInstence().API().GETBaseStationAli(Flag, Integer.parseInt(et_taclac.getText().toString()), Integer.parseInt(et_eci.getText().toString()),key, "application/json; charset=UTF-8").enqueue(new Callback<DataAliBean>() {
-                        @Override
-                        public void onResponse(Call<DataAliBean> call, Response<DataAliBean> response) {
-                            dataAliBean = response.body();
-                            Log.d("杨路通", "nzqonResponse: " + response.toString());
-                            if (dataAliBean!=null){
-                                if (dataAliBean.getMsg().equals("ok") && dataAliBean.getStatus() == 0) {
-                                    try {
-                                        String latresult = dataAliBean.getResult().getLat();
-                                        String lonresult = dataAliBean.getResult().getLng();
-                                        LatLng latLngresult = new LatLng(Double.parseDouble(latresult), Double.parseDouble(lonresult));
-                                        Log.d("杨路通", "dataBeanisShowjizhan: " + dataAliBean.getResult());
-                                        CoordinateConverter converter = new CoordinateConverter()
-                                                .from(CoordinateConverter.CoordType.GPS)
-                                                .coord(latLngresult);
-                                        //转换坐标
-                                        LatLng desLatLngBaidu = converter.convert();
-                                        GuijiViewBeanjizhan d = new GuijiViewBeanjizhan();
-                                        if (jizhanFlag == 0||jizhanFlag==1) {
-                                            d.setSid("");
-                                        }
-                                        d.setTypes("");
-                                        d.setBand("");
-                                        d.setPci("");
-                                        d.setDown("");
-                                        d.setId(1);
-                                        d.setAddress(dataAliBean.getResult().getAddr());
-                                        d.setCi(et_eci.getText().toString());
-                                        d.setLac(et_taclac.getText().toString());
-                                        if(Flag==0){//查询移动
-                                            d.setMcc("460");
-                                            d.setMnc("0");
-                                        }
-                                        if(Flag==1){//查询联通基站
-                                            d.setMcc("460");
-                                            d.setMnc("1");
-                                        }
-                                        d.setRadius("0");//阿里的数据源半徑為0
-                                        Log.d("杨路通", "onResponse:list" + list);
-                                        d.setTa(MyUtils.listToString(list));
-                                        d.setType(0);
-                                        d.setLat(String.valueOf(desLatLngBaidu.latitude));
-                                        d.setLon(String.valueOf(desLatLngBaidu.longitude));
-                                        d.setResources("公开数据");
-                                        int i = dbManagerJZ.insertStudent(d);
-                                        MapStatus.Builder builder = new MapStatus.Builder();
-                                        builder.target(new LatLng(desLatLngBaidu.latitude, desLatLngBaidu.longitude)).zoom(18.0f);
-                                        mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-                                        initdatas();
-                                        list.clear();
-                                        dialog.dismiss();
-                                        isShowAliJz(true);//展示阿里基站
-                                    } catch (SQLException e) {
-                                        e.printStackTrace();
-                                        Log.d(TAG, "resultBeansonResponse1: " + e.getMessage());
-                                    }
-                                }else if(dataAliBean.getMsg().equals("没有信息")){
-//                                    MyToast.showToast("查询不到该基站信息使用聚合查询");
-                                    //如果阿里的移动联通获取不到数据用聚合
-                                    getJuHeData();
-//                                    dialog.dismiss();
-                                }
-
-                            }else {
-//                                MyToast.showToast("请求阿里接口失败使用聚合查询");
-                                getJuHeData();//接口请求失败用聚合
-//                                dialog.dismiss();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<DataAliBean> call, Throwable t) {
-                            Log.d("杨路通", "nzqonResponse: " + t.getMessage());
-                        }
-                    });
-                } catch (Exception e) {
-                    MyToast.showToast("输入异常请检查输入信息是否有误");
-                }
+            ArrayList<String> list = new ArrayList<>();
+            if(jizhanFlag==4){//电信CDMA基站
+                list.add(et_sid.getText().toString());
+                list.add(et_taclac.getText().toString());
+                list.add(et_eci.getText().toString());
+                list.add(appKey);
+                getRetrofit3(list);
+            }else{
+                list.add(jizhanFlag+"");
+                list.add(et_taclac.getText().toString());
+                list.add(et_eci.getText().toString());
+                list.add(appKey);
+                getRetrofit(list);
             }
+//            if(jizhanFlag==4||jizhanFlag==11){//判断当前是电信4G或是2G基站
+//                Call<DataAliBean> call = RetrofitFactory.getInstence().API().GETBaseStationAliCdm(Flag, Integer.parseInt(et_taclac.getText().toString()), Integer.parseInt(et_eci.getText().toString()), key, "application/json; charset=UTF-8");
+//                call.enqueue(new Callback<DataAliBean>() {
+//                    @Override
+//                    public void onResponse(Call<DataAliBean> call, Response<DataAliBean> response) {
+//                        dataAliBean = response.body();
+//                        Log.d("杨路通", "nzqonResponse: " + response.toString());
+//                        if (dataAliBean!=null){
+//                            if (dataAliBean.getMsg().equals("ok") && dataAliBean.getStatus() == 0) {
+//                                try {
+//                                    String latresult = dataAliBean.getResult().getLat();
+//                                    String lonresult = dataAliBean.getResult().getLng();
+//                                    LatLng latLngresult = new LatLng(Double.parseDouble(latresult), Double.parseDouble(lonresult));
+//                                    Log.d("杨路通", "dataBeanisShowjizhan: " + dataAliBean.getResult());
+//                                    CoordinateConverter converter = new CoordinateConverter()
+//                                            .from(CoordinateConverter.CoordType.GPS)
+//                                            .coord(latLngresult);
+//
+//                                    //转换坐标
+//                                    LatLng desLatLngBaidu = converter.convert();
+//                                    GuijiViewBeanjizhan d = new GuijiViewBeanjizhan();
+//
+//                                    if(jizhanFlag==4){
+//                                        d.setSid(et_sid.getText().toString());
+//                                    }else{
+//                                        d.setSid("");
+//                                    }
+//                                    d.setTypes("");
+//                                    d.setBand("");
+//                                    d.setPci("");
+//                                    d.setDown("");
+//                                    d.setId(1);
+//                                    d.setAddress(dataAliBean.getResult().getAddr());
+//                                    d.setCi(et_eci.getText().toString());
+//                                    d.setLac(et_taclac.getText().toString());
+//                                    d.setMcc("460");
+//                                    if(jizhanFlag==4){
+//                                        d.setMnc(et_sid.getText().toString());
+//                                    }else{
+//                                        d.setMnc("11");
+//                                    }
+//                                    d.setRadius("0");//阿里的数据源半徑為0
+//                                    d.setTa(MyUtils.listToString(list));
+//                                    d.setType(0);
+//                                    d.setLat(String.valueOf(desLatLngBaidu.latitude));
+//                                    d.setLon(String.valueOf(desLatLngBaidu.longitude));
+//                                    d.setResources("公开数据");
+//                                    int i = dbManagerJZ.insertStudent(d);
+//                                    MapStatus.Builder builder = new MapStatus.Builder();
+//                                    builder.target(new LatLng(desLatLngBaidu.latitude, desLatLngBaidu.longitude)).zoom(18.0f);
+//                                    mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+//                                    initdatas();
+//                                    list.clear();
+//                                    dialog.dismiss();
+//                                    isShowAliJz(true);//展示阿里基站
+//                                } catch (SQLException e) {
+//                                    e.printStackTrace();
+//                                    Log.d(TAG, "resultBeansonResponse1: " + e.getMessage());
+//                                }
+//
+//                            }else if(dataAliBean.getMsg().equals("没有信息")){
+////                                MyToast.showToast("查询不到该基站信息使用聚合查询");
+//                                //如果阿里的移动联通获取不到数据用聚合
+//                                getJuHeData();
+////                                 dialog.dismiss();
+//                            }
+//                        }else {
+////                            MyToast.showToast("请求阿里接口失败使用聚合查询");
+//                            getJuHeData();//接口请求失败用聚合
+////                                dialog.dismiss();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<DataAliBean> call, Throwable t) {
+//
+//                    }
+//                });
+//            }else{//移动联通基站查询
+//                try {
+//                    RetrofitFactory.getInstence().API().GETBaseStationAli(Flag, Integer.parseInt(et_taclac.getText().toString()), Integer.parseInt(et_eci.getText().toString()),key, "application/json; charset=UTF-8").enqueue(new Callback<DataAliBean>() {
+//                        @Override
+//                        public void onResponse(Call<DataAliBean> call, Response<DataAliBean> response) {
+//                            dataAliBean = response.body();
+//                            Log.d("杨路通", "nzqonResponse: " + response.toString());
+//                            if (dataAliBean!=null){
+//                                if (dataAliBean.getMsg().equals("ok") && dataAliBean.getStatus() == 0) {
+//                                    try {
+//                                        String latresult = dataAliBean.getResult().getLat();
+//                                        String lonresult = dataAliBean.getResult().getLng();
+//                                        LatLng latLngresult = new LatLng(Double.parseDouble(latresult), Double.parseDouble(lonresult));
+//                                        Log.d("杨路通", "dataBeanisShowjizhan: " + dataAliBean.getResult());
+//                                        CoordinateConverter converter = new CoordinateConverter()
+//                                                .from(CoordinateConverter.CoordType.GPS)
+//                                                .coord(latLngresult);
+//                                        //转换坐标
+//                                        LatLng desLatLngBaidu = converter.convert();
+//                                        GuijiViewBeanjizhan d = new GuijiViewBeanjizhan();
+//                                        if (jizhanFlag == 0||jizhanFlag==1) {
+//                                            d.setSid("");
+//                                        }
+//                                        d.setTypes("");
+//                                        d.setBand("");
+//                                        d.setPci("");
+//                                        d.setDown("");
+//                                        d.setId(1);
+//                                        d.setAddress(dataAliBean.getResult().getAddr());
+//                                        d.setCi(et_eci.getText().toString());
+//                                        d.setLac(et_taclac.getText().toString());
+//                                        if(Flag==0){//查询移动
+//                                            d.setMcc("460");
+//                                            d.setMnc("0");
+//                                        }
+//                                        if(Flag==1){//查询联通基站
+//                                            d.setMcc("460");
+//                                            d.setMnc("1");
+//                                        }
+//                                        d.setRadius("0");//阿里的数据源半徑為0
+//                                        Log.d("杨路通", "onResponse:list" + list);
+//                                        d.setTa(MyUtils.listToString(list));
+//                                        d.setType(0);
+//                                        d.setLat(String.valueOf(desLatLngBaidu.latitude));
+//                                        d.setLon(String.valueOf(desLatLngBaidu.longitude));
+//                                        d.setResources("公开数据");
+//                                        int i = dbManagerJZ.insertStudent(d);
+//                                        MapStatus.Builder builder = new MapStatus.Builder();
+//                                        builder.target(new LatLng(desLatLngBaidu.latitude, desLatLngBaidu.longitude)).zoom(18.0f);
+//                                        mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+//                                        initdatas();
+//                                        list.clear();
+//                                        dialog.dismiss();
+//                                        isShowAliJz(true);//展示阿里基站
+//                                    } catch (SQLException e) {
+//                                        e.printStackTrace();
+//                                        Log.d(TAG, "resultBeansonResponse1: " + e.getMessage());
+//                                    }
+//                                }else if(dataAliBean.getMsg().equals("没有信息")){
+////                                    MyToast.showToast("查询不到该基站信息使用聚合查询");
+//                                    //如果阿里的移动联通获取不到数据用聚合
+//                                    getJuHeData();
+////                                    dialog.dismiss();
+//                                }
+//                            }else {
+////                                MyToast.showToast("请求阿里接口失败使用聚合查询");
+//                                getJuHeData();//接口请求失败用聚合
+////                                dialog.dismiss();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<DataAliBean> call, Throwable t) {
+//                            Log.d("杨路通", "nzqonResponse: " + t.getMessage());
+//                        }
+//                    });
+//                } catch (Exception e) {
+//                    MyToast.showToast("输入异常请检查输入信息是否有误");
+//                }
+//            }
 //            Toast.makeText(MainActivity.this, "阿里云数据", Toast.LENGTH_SHORT).show();
         }
-        if (DATATYPE == 2) {
+        if (DATATYPE == 2) {//聚合
             if (jizhanFlag == 11) {
 //                Toast.makeText(MainActivity.this, "查询不到基站信息", Toast.LENGTH_LONG).show();
                 MyToast.showToast("查询不到基站信息");
@@ -3215,9 +3418,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                         }
                     }
                     dialog.dismiss();
-
                     if (jzGetData.getCode() == 0 && jzGetData.getData() == null) {
-
                         MyToast.showToast("查询不到基站信息");
                         dialog.dismiss();
                     }
@@ -3230,7 +3431,6 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                 }
             });
         }
-//        rb_Manuallyenter  116.33068,40.050716
         if (DATATYPE == 3) {//手动输入
 //            LatLng latLng = new LatLng(Double.parseDouble("40.050716"), Double.parseDouble("116.33068"));
             if (TextUtils.isEmpty(ets_lon.getText().toString())) {
@@ -3296,35 +3496,49 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
         }
 
     }
+    private String TAG ="ylt";
+    private void getRetrofit(ArrayList<String> list) {
+        String url;
+//        http://www.cellmap.cn/api/cell2gps.aspx?mnc=0&lac=12795&cell=241734401&key=09f9433abbe7406aa5da1d3290d36c1d
 
-    private void getJuHeData() {
-//        if (DATATYPE == 1) {//公开数据查询 聚合
-//            sendMax();
-            String key = "4283a37b42d1e381f4ffa6bf9e8ecc96";
-            Log.d(TAG, "sendPostjizhanFlag:" + jizhanFlag);
-            int Flag = 0;
-            if (jizhanFlag == 4) {
-                Flag = Integer.parseInt(et_sid.getText().toString());
-            } else {
-                Flag = jizhanFlag;
-            }
-            MyUtils.getNumber(ACacheUtil.getID());//次数更新
-            dialog.dismiss();
-            try {
-                RetrofitFactory.getInstence().API().GETBaseStation(Flag, Integer.parseInt(et_taclac.getText().toString()), Integer.parseInt(et_eci.getText().toString()), key).enqueue(new Callback<DataBean>() {
+        url = getBaseUrl+"?mnc="+ list.get(0)+"&lac="+ list.get(1)+"&cell="+ list.get(2)+"&key="+ list.get(3);
+
+        Log.e(TAG, "getRetrofit: "+url );
+        OkHttpClient client=new OkHttpClient();
+        Request request=new Request
+                .Builder()
+                .url(url)//要访问的链接
+                .get()
+                .build();
+        okhttp3.Call call = client.newCall(request);
+        call.enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                Log.e("yltylt", "onResponse: "+e.getMessage());
+                runOnUiThread(new Runnable() {
                     @Override
-                    public void onResponse(Call<DataBean> call, Response<DataBean> response) {
-                        Log.d(TAG, "nzqonResponse: " + response.toString());
+                    public void run() {
+                        MyToast.showToast("查询失败");
+                    }
+                });
+            }
 
-                        dataBean = response.body();
-                        if (dataBean.getReason().equals("查询成功") && dataBean.getError_code() == 0) {
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                String string = response.body().string();
+                Log.e("yltylt", "onResponse: "+string);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(string.equals("null")){
+                            MyToast.showToast("查询不到该基站");
+                        }else{
+                            String[] split = string.split(",");
+                            Log.e("yltylt", "onResponse3: "+string);
                             try {
-                                String latresult = dataBean.getResult().getLat();
-                                String lonresult = dataBean.getResult().getLon();
+                                String latresult = split[0];
+                                String lonresult = split[1];
                                 LatLng latLngresult = new LatLng(Double.parseDouble(latresult), Double.parseDouble(lonresult));
-                                Log.d(TAG, "dataBeanisShowjizhan: " + dataBean.getResult());
-//            LatLng latLngresult = new LatLng(Double.parseDouble("38.031242"), Double.parseDouble("114.450186"));
-
                                 CoordinateConverter converter = new CoordinateConverter()
                                         .from(CoordinateConverter.CoordType.GPS)
                                         .coord(latLngresult);
@@ -3336,49 +3550,212 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                                 } else {
                                     d.setSid("");
                                 }
-                                d.setTypes("");
-                                d.setBand("");
-                                d.setPci("");
-                                d.setDown("");
+//                        d.setTypes("" + jzGetData.getData().getType());
+//                        d.setBand("" + jzGetData.getData().getBand());
+//                        d.setPci("" + jzGetData.getData().getPci());
+//                        d.setDown("" + jzGetData.getData().getDownFrequencyPoint());
                                 d.setId(1);
-                                d.setAddress(dataBean.getResult().getAddress());
-                                d.setCi(dataBean.getResult().getCi());
-                                d.setLac(dataBean.getResult().getLac());
-                                d.setMcc(dataBean.getResult().getMcc());
-                                d.setMnc(dataBean.getResult().getMnc());
-                                d.setRadius(dataBean.getResult().getRadius());
+                                d.setId(1);
+                                d.setAddress(split[4]);
+                                d.setCi(et_eci.getText().toString() + "");
+                                d.setLac(et_taclac.getText().toString() + "");
+                                d.setMcc("");
+                                d.setMnc(jizhanFlag + "");
+                                d.setRadius("0");
 //                        d.setTa(et_ta.getText().toString());
-                                Log.d(TAG, "onResponse:aalist" + list);
-                                d.setTa(MyUtils.listToString(list));
+                                d.setTa(MyUtils.listToString(MainActivity.this.list));
                                 d.setType(0);
+                                d.setResources("公开数据");
                                 d.setLat(String.valueOf(desLatLngBaidu.latitude));
                                 d.setLon(String.valueOf(desLatLngBaidu.longitude));
-                                d.setResources("公开数据");
-                                int i = dbManagerJZ.insertStudent(d);
+                                dbManagerJZ.insertStudent(d);
+                                initdatas();
+                                //视角跳转
                                 MapStatus.Builder builder = new MapStatus.Builder();
                                 builder.target(new LatLng(desLatLngBaidu.latitude, desLatLngBaidu.longitude)).zoom(18.0f);
                                 mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-                                initdatas();
                                 list.clear();
                             } catch (SQLException e) {
                                 e.printStackTrace();
                                 Log.d(TAG, "resultBeansonResponse1: " + e.getMessage());
                             }
-
+                            dialog.dismiss();
                         }
-                        dialog.dismiss();
-                        isShowjizhan(true);//展示基站
-                    }
-
-                    @Override
-                    public void onFailure(Call<DataBean> call, Throwable t) {
-                        Log.d(TAG, "nzqonResponse: " + t.getMessage());
-
                     }
                 });
-            } catch (Exception e) {
-                MyToast.showToast("输入异常请检查输入信息是否有误");
             }
+        });
+    }
+    private void getRetrofit3(ArrayList<String> list) {
+        String url;
+//        http://www.cellmap.cn/api/cell2gps.aspx?mnc=0&lac=12795&cell=241734401&key=09f9433abbe7406aa5da1d3290d36c1d
+
+        url = getBaseUrl3+"?sid="+ list.get(0)+"&nid="+ list.get(1)+"&bid="+ list.get(2)+"&key="+ list.get(3);
+
+        Log.e(TAG, "getRetrofit3: "+url );
+        OkHttpClient client=new OkHttpClient();
+        Request request=new Request
+                .Builder()
+                .url(url)//要访问的链接
+                .get()
+                .build();
+        okhttp3.Call call = client.newCall(request);
+        call.enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                Log.e("yltylt", "onResponse3: "+e.getMessage());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        MyToast.showToast("查询失败");
+                    }
+                });
+            }
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+               String string = response.body().string();
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        if(string.equals("null")){
+                            MyToast.showToast("查询不到该基站");
+                        }else{
+                            String[] split = string.split(",");
+                            Log.e("yltylt", "onResponse3: "+string);
+                            try {
+                                String latresult = split[0];
+                                String lonresult = split[1];
+                                LatLng latLngresult = new LatLng(Double.parseDouble(latresult), Double.parseDouble(lonresult));
+                                CoordinateConverter converter = new CoordinateConverter()
+                                        .from(CoordinateConverter.CoordType.GPS)
+                                        .coord(latLngresult);
+                                //转换坐标
+                                LatLng desLatLngBaidu = converter.convert();
+                                GuijiViewBeanjizhan d = new GuijiViewBeanjizhan();
+                                if (jizhanFlag == 4) {
+                                    d.setSid(et_sid.getText().toString());
+                                } else {
+                                    d.setSid("");
+                                }
+//                        d.setTypes("" + jzGetData.getData().getType());
+//                        d.setBand("" + jzGetData.getData().getBand());
+//                        d.setPci("" + jzGetData.getData().getPci());
+//                        d.setDown("" + jzGetData.getData().getDownFrequencyPoint());
+                                d.setId(1);
+                                d.setId(1);
+                                d.setAddress(split[4]);
+                                d.setCi(et_eci.getText().toString() + "");
+                                d.setLac(et_taclac.getText().toString() + "");
+                                d.setMcc("");
+                                d.setMnc(jizhanFlag + "");
+                                d.setRadius("0");
+//                        d.setTa(et_ta.getText().toString());
+                                d.setTa(MyUtils.listToString(MainActivity.this.list));
+                                d.setType(0);
+                                d.setResources("公开数据");
+                                d.setLat(String.valueOf(desLatLngBaidu.latitude));
+                                d.setLon(String.valueOf(desLatLngBaidu.longitude));
+                                dbManagerJZ.insertStudent(d);
+                                initdatas();
+                                //视角跳转
+                                MapStatus.Builder builder = new MapStatus.Builder();
+                                builder.target(new LatLng(desLatLngBaidu.latitude, desLatLngBaidu.longitude)).zoom(18.0f);
+                                mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+                                list.clear();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                                Log.d(TAG, "resultBeansonResponse1: " + e.getMessage());
+                            }
+                            dialog.dismiss();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
+    private void getJuHeData() {
+//        if (DATATYPE == 1) {//公开数据查询 聚合
+//            sendMax();
+        String key = "4283a37b42d1e381f4ffa6bf9e8ecc96";
+        Log.d(TAG, "sendPostjizhanFlag:" + jizhanFlag);
+        int Flag = 0;
+        if (jizhanFlag == 4) {
+            Flag = Integer.parseInt(et_sid.getText().toString());
+        } else {
+            Flag = jizhanFlag;
+        }
+        MyUtils.getNumber(ACacheUtil.getID());//次数更新
+        dialog.dismiss();
+        try {
+            RetrofitFactory.getInstence().API().GETBaseStation(Flag, Integer.parseInt(et_taclac.getText().toString()), Integer.parseInt(et_eci.getText().toString()), key).enqueue(new Callback<DataBean>() {
+                @Override
+                public void onResponse(Call<DataBean> call, Response<DataBean> response) {
+                    Log.d(TAG, "nzqonResponse: " + response.toString());
+
+                    dataBean = response.body();
+                    if (dataBean.getReason().equals("查询成功") && dataBean.getError_code() == 0) {
+                        try {
+                            String latresult = dataBean.getResult().getLat();
+                            String lonresult = dataBean.getResult().getLon();
+                            LatLng latLngresult = new LatLng(Double.parseDouble(latresult), Double.parseDouble(lonresult));
+                            Log.d(TAG, "dataBeanisShowjizhan: " + dataBean.getResult());
+//            LatLng latLngresult = new LatLng(Double.parseDouble("38.031242"), Double.parseDouble("114.450186"));
+
+                            CoordinateConverter converter = new CoordinateConverter()
+                                    .from(CoordinateConverter.CoordType.GPS)
+                                    .coord(latLngresult);
+                            //转换坐标
+                            LatLng desLatLngBaidu = converter.convert();
+                            GuijiViewBeanjizhan d = new GuijiViewBeanjizhan();
+                            if (jizhanFlag == 4) {
+                                d.setSid(et_sid.getText().toString());
+                            } else {
+                                d.setSid("");
+                            }
+                            d.setTypes("");
+                            d.setBand("");
+                            d.setPci("");
+                            d.setDown("");
+                            d.setId(1);
+                            d.setAddress(dataBean.getResult().getAddress());
+                            d.setCi(dataBean.getResult().getCi());
+                            d.setLac(dataBean.getResult().getLac());
+                            d.setMcc(dataBean.getResult().getMcc());
+                            d.setMnc(dataBean.getResult().getMnc());
+                            d.setRadius(dataBean.getResult().getRadius());
+//                        d.setTa(et_ta.getText().toString());
+                            Log.d(TAG, "onResponse:aalist" + list);
+                            d.setTa(MyUtils.listToString(list));
+                            d.setType(0);
+                            d.setLat(String.valueOf(desLatLngBaidu.latitude));
+                            d.setLon(String.valueOf(desLatLngBaidu.longitude));
+                            d.setResources("公开数据");
+                            int i = dbManagerJZ.insertStudent(d);
+                            MapStatus.Builder builder = new MapStatus.Builder();
+                            builder.target(new LatLng(desLatLngBaidu.latitude, desLatLngBaidu.longitude)).zoom(18.0f);
+                            mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+                            initdatas();
+                            list.clear();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            Log.d(TAG, "resultBeansonResponse1: " + e.getMessage());
+                        }
+
+                    }
+                    dialog.dismiss();
+                    isShowjizhan(true);//展示基站
+                }
+
+                @Override
+                public void onFailure(Call<DataBean> call, Throwable t) {
+                    Log.d(TAG, "nzqonResponse: " + t.getMessage());
+
+                }
+            });
+        } catch (Exception e) {
+            MyToast.showToast("输入异常请检查输入信息是否有误");
+        }
 
 //        }
     }
@@ -3495,7 +3872,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
     }
 
 
-    private void showDoliag() {//底部弹出窗
+    private void showDoliag() {//底部弹出窗 增加基站
         dialog = new Dialog(this, R.style.ActionSheetDialogStyle);
         //填充对话框的布局
         inflate = LayoutInflater.from(this).inflate(R.layout.item_dibushow, null);
@@ -3523,7 +3900,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
 
         ll_location.setVisibility(View.GONE);
 
-        if(DATATYPE==6){
+        if(DATATYPE==1){
             rb_open1.setChecked(true);
         }
        /* if (DATATYPE == 1) {
@@ -3541,7 +3918,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
 //   Toast.makeText(MainActivity.this, "公开数据", Toast.LENGTH_LONG).show();
 //                        MyToast.showToast("公开数据1--阿里");
                         Log.d(TAG, "qonCheckedChanged: " + "6");
-                        DATATYPE = 6;
+                        DATATYPE = 1;
                         ll_location.setVisibility(View.GONE);
                         break;
                    /* case R.id.rb_open_check2:
@@ -3965,7 +4342,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                 mBaiduMap.clear();
                 break;
             case R.id.config_message:
-                //基站界面
+//                //基站界面
 //                Toast.makeText(this, "你点击了基站信息", Toast.LENGTH_SHORT).show();
                 Intent intent1 = new Intent(this, BaseNrLteActivity.class);
                 if(longitude!=null&&latitude!=null){
@@ -3977,7 +4354,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                 startActivity(intent1);
                 break;
 //                case R.id.config_drive:
-                //基站界面
+            //基站界面
 //                Toast.makeText(this, "你点击了基站信息", Toast.LENGTH_SHORT).show();
                /* Intent intent2 = new Intent(this, DriveTestActivity.class);
                 if(longitude!=null&&latitude!=null){
@@ -3988,7 +4365,6 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                 }
                 startActivity(intent2);*/
 //                break;
-
             case R.id.jzxs:
 //                Toast.makeText(MainActivity.this, "你点击了基站巡视", Toast.LENGTH_LONG).show();
                 Myshow.jizhanShow(MainActivity.this, mycallback, xunFlag, BUSINESS, ll_screen, mBaiduMap, uiSettings);
@@ -4057,11 +4433,15 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public void onReceiveLocation(BDLocation location) {
+            Log.d(TAG, "onReceiveLocation1: " + mylag);
+
             // map view 销毁后不在处理新接收的位置
             if (location == null || mMapView == null) {
                 return;
             }
-            Log.d(TAG, "onReceiveLocation: " + mylag);
+
+//            Toast.makeText(MainActivity.this, ""+mylag, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onReceiveLocation2: " + mylag);
             mCurrentLat = location.getLatitude();
             mCurrentLon = location.getLongitude();
             mCurrentAccracy = location.getRadius();
@@ -4108,7 +4488,6 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                     } else {
                         getguis = 10.0;
                     }
-
                     if (distance > getguis) { //大于设置的 轨迹间隔 添加
                         Log.d(TAG, "ASonReceiveLocation:大于");
                         GuijiViewBean guijiViewBeanS = new GuijiViewBean();
@@ -4732,12 +5111,10 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
         }
         super.onDestroy();
     }
-
     @TargetApi(Build.VERSION_CODES.N)
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
         if (resultCode == 11) {//JzListActivity  返回来的 id 和经纬度
             initdatas2();//刷新当前基站的信息 必要 初始化一下
 
@@ -4997,7 +5374,12 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
     @Override
     protected void onRestart() {
         super.onRestart();
-        mLocClient = new LocationClient(this);
+        try {
+            mLocClient = new LocationClient(this);
+        } catch (Exception e) {
+            Log.e("TAG_onRestart", "onRestart: "+e.getMessage() );
+            e.printStackTrace();
+        }
         mLocClient.registerLocationListener(myListener);
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Device_Sensors);

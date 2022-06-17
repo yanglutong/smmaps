@@ -1,10 +1,10 @@
 package com.sm.smmap.smmap.lte_nr;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
@@ -30,11 +30,10 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
         //定义的集合大小
         return list.size();
     }
-
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        //设置Tablayout的标题
-        return title[position];
-    }
+//    @Nullable
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//        //设置Tablayout的标题
+//        return title[position];
+//    }
 }

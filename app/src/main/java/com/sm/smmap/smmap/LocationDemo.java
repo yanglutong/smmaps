@@ -128,7 +128,11 @@ public class LocationDemo extends Activity implements SensorEventListener {
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
         // 定位初始化
-        mLocClient = new LocationClient(this);
+        try {
+            mLocClient = new LocationClient(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mLocClient.registerLocationListener(myListener);
         LocationClientOption option = new LocationClientOption();
         option.setOpenGps(true); // 打开gps

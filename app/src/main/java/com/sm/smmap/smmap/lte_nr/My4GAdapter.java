@@ -2,8 +2,10 @@ package com.sm.smmap.smmap.lte_nr;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,10 +37,11 @@ public class My4GAdapter extends RecyclerView.Adapter {
         MyViewHolder holder = new MyViewHolder(inflate);
         return holder;
     }
+
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        MyViewHolder myViewHolder= (MyViewHolder) holder;
+        MyViewHolder myViewHolder = (MyViewHolder) holder;
         myViewHolder.re_band.setText(arrayList.get(position).getLteBand());
         myViewHolder.re_nr_arfcn.setText(arrayList.get(position).getLteEarfac());
         myViewHolder.re_pci.setText(arrayList.get(position).getLtePci());
@@ -46,22 +49,23 @@ public class My4GAdapter extends RecyclerView.Adapter {
         myViewHolder.re_rsrq.setText(arrayList.get(position).getLteRsrq());
         myViewHolder.re_sinr.setText(arrayList.get(position).getLteRssi());
 
-        //动态添加textview线
-            if(position<arrayList.size()-1){
-                LinearLayout linearLayout = holder.itemView.findViewById(R.id.recycler_Line);
-                TextView textView = new TextView(context);
-                textView.setBackgroundResource(R.color.colorMyr);
-                textView.setHeight(1);
-                textView.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-                linearLayout.addView(textView);
-            }
+//        //动态添加textview线
+//        if (position < arrayList.size() - 1) {
+//            LinearLayout linearLayout = holder.itemView.findViewById(R.id.recycler_Line);
+//            TextView textView = new TextView(context);
+//            textView.setBackgroundResource(R.color.colorMyr);
+//            textView.setHeight(1);
+//            textView.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+//            linearLayout.addView(textView);
+//        }
     }
 
     @Override
     public int getItemCount() {
         return arrayList.size();
     }
-    class MyViewHolder extends RecyclerView.ViewHolder{
+
+    class MyViewHolder extends RecyclerView.ViewHolder {
         private final TextView re_band;
         private final TextView re_nr_arfcn;
         private final TextView re_pci;

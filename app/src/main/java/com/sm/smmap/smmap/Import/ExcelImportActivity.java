@@ -1,18 +1,15 @@
 package com.sm.smmap.smmap.Import;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.leon.lfilepickerlibrary.LFilePicker;
 import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.sm.smmap.smmap.JzListActivity;
 import com.sm.smmap.smmap.R;
@@ -28,23 +25,8 @@ import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.read.biff.BiffException;
-import jxl.write.WritableSheet;
 
 public class ExcelImportActivity extends FragmentActivity implements ExcelView.View {
     ImageView add, finsh;//添加、返回按钮

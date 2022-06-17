@@ -3,7 +3,7 @@ package com.sm.smmap.smmap.filepicker.util;
 import android.content.Context;
 import android.os.Environment;
 import android.os.storage.StorageManager;
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 

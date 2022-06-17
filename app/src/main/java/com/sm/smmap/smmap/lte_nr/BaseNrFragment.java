@@ -1,17 +1,19 @@
 package com.sm.smmap.smmap.lte_nr;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.RequiresApi;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.telephony.CellIdentityLte;
 import android.telephony.CellIdentityNr;
 import android.telephony.CellInfo;
@@ -32,7 +34,6 @@ import android.widget.TextView;
 
 import com.sm.smmap.smmap.R;
 import com.sm.smmap.smmap.Utils.GCJ02ToWGS84Util;
-import com.sm.smmap.smmap.Utils.MyToast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -67,12 +68,12 @@ public class BaseNrFragment extends Fragment {
     public Runnable run;
 
     //定义集合 获取是卡槽1还是卡槽2
-    private ArrayList<String> kaList=new ArrayList<>();
+    private ArrayList<String> kaList = new ArrayList<>();
     //当前小区
     private ArrayList<To5GBean> list5 = new ArrayList<>();
-    private ArrayList<To4GBean> list4=new ArrayList<>();
-    private ArrayList<To4GBean> list4Lin=new ArrayList<>();
-    private ArrayList<To4GBean> list4Lin2=new ArrayList<>();
+    private ArrayList<To4GBean> list4 = new ArrayList<>();
+    private ArrayList<To4GBean> list4Lin = new ArrayList<>();
+    private ArrayList<To4GBean> list4Lin2 = new ArrayList<>();
     //邻小区
     private ArrayList<To5GBean> list5Lin = new ArrayList<>();
     private Runnable runnable;
@@ -127,82 +128,82 @@ public class BaseNrFragment extends Fragment {
     public Handler handlerUp = new Handler() {
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
         public void handleMessage(Message msg) {
-            if(msg.what==2){
-                ArrayList<String> list2= (ArrayList<String>) msg.obj;
+            if (msg.what == 2) {
+                ArrayList<String> list2 = (ArrayList<String>) msg.obj;
                 //判断获取到4 5G数据
-                if(list2.size()>0){
+                if (list2.size() > 0) {
                     scroll.setVisibility(View.VISIBLE);
-                    if(list2.get(0).equals("5G")&&page==0){//5G 第一张卡 页面1
-                   linear_5G.setVisibility(View.VISIBLE);
-                   linear_4G.setVisibility(View.GONE);
-                   my5GRecycler.setVisibility(View.VISIBLE);
-                   my4GRecycler.setVisibility(View.GONE);
-                   if (list5.size() > 1) {
-                       if (list5.get(1).getMnc() != null) {
-                           if (Integer.parseInt(list5.get(1).getMnc()) == 01) {
-                               iv_log.setImageResource(R.drawable.cucc);
-                               tv_operator.setText("CUCC");
-                               tv_mcc.setText("460");
-                               tv_name.setText("中国联通");
-                           }
-                           if (Integer.parseInt(list5.get(1).getMnc()) == 11) {
-                               iv_log.setImageResource(R.drawable.ctcc);
-                               tv_operator.setText("CTCC");
-                               tv_mcc.setText("460");
-                               tv_name.setText("中国电信");
-                           }
-                           if (Integer.parseInt(list5.get(1).getMnc()) == 00) {
-                               iv_log.setImageResource(R.drawable.cmcc);
-                               tv_operator.setText("CMCC");
-                               tv_mcc.setText("460");
-                               tv_name.setText("中国移动");
-                           }
-                       }
-                       tv_rssl.setText(list5.get(1).getSINR() + "");
-                       tv_rsrp.setText(list5.get(1).getRSRP() + "");
-                       tv_rsrq.setText(list5.get(1).getRSRQ() + "");
-                       tv_ssRSRP.setText(list5.get(1).getRSRP() + "");
-                       tv_ssRSRQ.setText(list5.get(1).getRSRQ() + "");
-                       tv_ssSinr.setText(list5.get(1).getSINR() + "");
+                    if (list2.get(0).equals("5G") && page == 0) {//5G 第一张卡 页面1
+                        linear_5G.setVisibility(View.VISIBLE);
+                        linear_4G.setVisibility(View.GONE);
+                        my5GRecycler.setVisibility(View.VISIBLE);
+                        my4GRecycler.setVisibility(View.GONE);
+                        if (list5.size() > 1) {
+                            if (list5.get(1).getMnc() != null) {
+                                if (Integer.parseInt(list5.get(1).getMnc()) == 01) {
+                                    iv_log.setImageResource(R.drawable.cucc);
+                                    tv_operator.setText("CUCC");
+                                    tv_mcc.setText("460");
+                                    tv_name.setText("中国联通");
+                                }
+                                if (Integer.parseInt(list5.get(1).getMnc()) == 11) {
+                                    iv_log.setImageResource(R.drawable.ctcc);
+                                    tv_operator.setText("CTCC");
+                                    tv_mcc.setText("460");
+                                    tv_name.setText("中国电信");
+                                }
+                                if (Integer.parseInt(list5.get(1).getMnc()) == 00) {
+                                    iv_log.setImageResource(R.drawable.cmcc);
+                                    tv_operator.setText("CMCC");
+                                    tv_mcc.setText("460");
+                                    tv_name.setText("中国移动");
+                                }
+                            }
+                            tv_rssl.setText(list5.get(1).getSINR() + "");
+                            tv_rsrp.setText(list5.get(1).getRSRP() + "");
+                            tv_rsrq.setText(list5.get(1).getRSRQ() + "");
+                            tv_ssRSRP.setText(list5.get(1).getRSRP() + "");
+                            tv_ssRSRQ.setText(list5.get(1).getRSRQ() + "");
+                            tv_ssSinr.setText(list5.get(1).getSINR() + "");
 
-                       tv_mobile.setText(list5.get(1).getNr());
-                       tv_mobile2.setText(list5.get(1).getNr());
+                            tv_mobile.setText(list5.get(1).getNr());
+                            tv_mobile2.setText(list5.get(1).getNr());
 
-                       tv_mnc.setText(list5.get(1).getMnc());
-                       tv_cell_type.setText(list5.get(1).getNr());
-                       tv_cell_type2.setText(list5.get(1).getNrType());
-                       tv_pci.setText(list5.get(1).getPCI());
-                       tv_ci.setText(list5.get(1).getCID());
-                       tv_arfcn.setText(list5.get(1).getNR_ARFCN());
-                       tv_bands.setText(list5.get(1).getBAND() + "");
-                       tv_lac.setText(list5.get(1).getTac());
+                            tv_mnc.setText(list5.get(1).getMnc());
+                            tv_cell_type.setText(list5.get(1).getNr());
+                            tv_cell_type2.setText(list5.get(1).getNrType());
+                            tv_pci.setText(list5.get(1).getPCI());
+                            tv_ci.setText(list5.get(1).getCID());
+                            tv_arfcn.setText(list5.get(1).getNR_ARFCN());
+                            tv_bands.setText(list5.get(1).getBAND() + "");
+                            tv_lac.setText(list5.get(1).getTac());
 
-                       if(list5.get(1).getPsc()>0){
-                            tvLac9.setText(list5.get(1).getLac()+"");
-                            tv_pscTo.setText(list5.get(1).getPsc()+"");
-                            tv_psc.setVisibility(View.VISIBLE);
-                            tv_pscTo.setVisibility(View.VISIBLE);
-                            tv_view_psc.setVisibility(View.VISIBLE);
-                            tvLac.setVisibility(View.VISIBLE);
-                            tv_view_lac.setVisibility(View.VISIBLE);
-                            tvLac9.setVisibility(View.VISIBLE);
-                            tv_view3.setVisibility(View.VISIBLE);
-                       }else{
-                           tv_psc.setVisibility(View.GONE);
-                           tv_pscTo.setVisibility(View.GONE);
-                           tv_view_psc.setVisibility(View.GONE);
-                           tvLac.setVisibility(View.GONE);
-                           tv_view_lac.setVisibility(View.GONE);
-                           tvLac9.setVisibility(View.GONE);
-                           tv_view3.setVisibility(View.GONE);
-                       }
+                            if (list5.get(1).getPsc() > 0) {
+                                tvLac9.setText(list5.get(1).getLac() + "");
+                                tv_pscTo.setText(list5.get(1).getPsc() + "");
+                                tv_psc.setVisibility(View.VISIBLE);
+                                tv_pscTo.setVisibility(View.VISIBLE);
+                                tv_view_psc.setVisibility(View.VISIBLE);
+                                tvLac.setVisibility(View.VISIBLE);
+                                tv_view_lac.setVisibility(View.VISIBLE);
+                                tvLac9.setVisibility(View.VISIBLE);
+                                tv_view3.setVisibility(View.VISIBLE);
+                            } else {
+                                tv_psc.setVisibility(View.GONE);
+                                tv_pscTo.setVisibility(View.GONE);
+                                tv_view_psc.setVisibility(View.GONE);
+                                tvLac.setVisibility(View.GONE);
+                                tv_view_lac.setVisibility(View.GONE);
+                                tvLac9.setVisibility(View.GONE);
+                                tv_view3.setVisibility(View.GONE);
+                            }
 
 
-                       my5GAdapter = new My5GAdapter(list5,mainActivity);
-                       recyclerView5G.setAdapter(my5GAdapter);
-                       my5GAdapter.notifyDataSetChanged();
+                            my5GAdapter = new My5GAdapter(list5, mainActivity);
+                            recyclerView5G.setAdapter(my5GAdapter);
+                            my5GAdapter.notifyDataSetChanged();
                         }
-                    }else if(list2.get(list2.size()-1).equals("5G")&&page==1){//5G 第二张卡 页面2
+                    } else if (list2.get(list2.size() - 1).equals("5G") && page == 1) {//5G 第二张卡 页面2
                         linear_5G.setVisibility(View.VISIBLE);
                         linear_4G.setVisibility(View.GONE);
                         my5GRecycler.setVisibility(View.VISIBLE);
@@ -248,9 +249,9 @@ public class BaseNrFragment extends Fragment {
                             tv_lac.setText(list5.get(1).getTac());
 
 
-                            if(list5.get(1).getPsc()>0){
-                                tvLac9.setText(list5.get(1).getLac()+"");
-                                tv_pscTo.setText(list5.get(1).getPsc()+"");
+                            if (list5.get(1).getPsc() > 0) {
+                                tvLac9.setText(list5.get(1).getLac() + "");
+                                tv_pscTo.setText(list5.get(1).getPsc() + "");
                                 tv_psc.setVisibility(View.VISIBLE);
                                 tv_pscTo.setVisibility(View.VISIBLE);
                                 tv_view_psc.setVisibility(View.VISIBLE);
@@ -259,7 +260,7 @@ public class BaseNrFragment extends Fragment {
                                 tvLac9.setVisibility(View.VISIBLE);
                                 tvLac9.setVisibility(View.VISIBLE);
                                 tv_view3.setVisibility(View.VISIBLE);
-                            }else{
+                            } else {
                                 tv_psc.setVisibility(View.GONE);
                                 tv_pscTo.setVisibility(View.GONE);
                                 tv_view_psc.setVisibility(View.GONE);
@@ -270,17 +271,17 @@ public class BaseNrFragment extends Fragment {
                             }
 
 
-                            my5GAdapter = new My5GAdapter(list5,mainActivity);
+                            my5GAdapter = new My5GAdapter(list5, mainActivity);
                             recyclerView5G.setAdapter(my5GAdapter);
                             my5GAdapter.notifyDataSetChanged();
                         }
-                    }else if(list2.get(0).equals("4G")&&page==0||list2.get(list2.size()-1).equals("4G")&&page==1){//4G 第一个卡 页面1
+                    } else if (list2.get(0).equals("4G") && page == 0 || list2.get(list2.size() - 1).equals("4G") && page == 1) {//4G 第一个卡 页面1
                         linear_5G.setVisibility(View.GONE);
                         linear_4G.setVisibility(View.VISIBLE);
                         my5GRecycler.setVisibility(View.GONE);
                         my4GRecycler.setVisibility(View.VISIBLE);
 
-                        if(list4.size()==2&&page==1) {
+                        if (list4.size() == 2 && page == 1) {
                             if (list4.get(1).getLteMncString() != null) {
                                 if (Integer.parseInt(list4.get(1).getLteMncString()) == 01) {
                                     iv_log.setImageResource(R.drawable.cucc);
@@ -318,10 +319,10 @@ public class BaseNrFragment extends Fragment {
                             tv_ssSinr.setText("---");
                             tv_ssRSRQ.setText("---");
                             tv_ssRSRP.setText("---");
-                            my4GAdapter = new My4GAdapter(list4Lin2,mainActivity);
+                            my4GAdapter = new My4GAdapter(list4Lin2, mainActivity);
                             recyclerView4G.setAdapter(my4GAdapter);
                             my4GAdapter.notifyDataSetChanged();
-                        }else if(list4.size()==2&&page==0||list4.size()==1){
+                        } else if (list4.size() == 2 && page == 0 || list4.size() == 1) {
                             if (list4.get(0).getLteMncString() != null) {
                                 if (Integer.parseInt(list4.get(0).getLteMncString()) == 01) {
                                     iv_log.setImageResource(R.drawable.cucc);
@@ -359,19 +360,17 @@ public class BaseNrFragment extends Fragment {
                             tv_ssSinr.setText("---");
                             tv_ssRSRQ.setText("---");
                             tv_ssRSRP.setText("---");
-                            my4GAdapter = new My4GAdapter(list4Lin,mainActivity);
+                            my4GAdapter = new My4GAdapter(list4Lin, mainActivity);
                             recyclerView4G.setAdapter(my4GAdapter);
                             my4GAdapter.notifyDataSetChanged();
                         }
                     }
-                }else{//如果没有4 5G数据
+                } else {//如果没有4 5G数据
                     scroll.setVisibility(View.GONE);
-                    View view=LayoutInflater.from(mainActivity).inflate(R.layout.lte_smi_backgroud, null);
+                    View view = LayoutInflater.from(mainActivity).inflate(R.layout.lte_smi_backgroud, null);
                     cons.addView(view);
                 }
             }
-
-
         }
     };
 
@@ -426,7 +425,7 @@ public class BaseNrFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if(handlerUp!=null||runnable!=null){
+        if (handlerUp != null || runnable != null) {
             handlerUp.removeCallbacks(runnable);
         }
         getClear();
@@ -437,7 +436,7 @@ public class BaseNrFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_base_nr, container, false);
-        mainActivity=getActivity();
+        mainActivity = getActivity();
         getData(view);
         return view;
     }
@@ -488,8 +487,17 @@ public class BaseNrFragment extends Fragment {
         add4GMi();
         add5GMi();
 
-        TelephonyManager manager = (TelephonyManager) mainActivity.getSystemService(TELEPHONY_SERVICE);
-        @SuppressLint("MissingPermission")
+        TelephonyManager manager = (TelephonyManager) getActivity().getSystemService(TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         List<CellInfo> cellInfoList = manager.getAllCellInfo();
         for (CellInfo info : cellInfoList) {
             Log.i("ylt", "get4GDemo: " + info.toString());
@@ -550,11 +558,14 @@ public class BaseNrFragment extends Fragment {
                 }
                 else{
                     if(list4.size()==1){
-                        if(Integer.parseInt(list4.get(0).getLteMncString())==Integer.parseInt(lteMncString)){
-                            list4Lin.add(new To4GBean(lteMccString,lteMncString,lteTac+"",ltePci+"",
-                                    lteCi+"",lteEarfac+"",lteBand+"",lteRssi+"",
-                                    lteRsrp+"", lteRsrq+"", lteRssnr+"","op","LTE","小区类型 LTE"));
+                        if(list4.get(0).getLteMncString()!=null&&lteMccString!=null){
+                            if(Integer.parseInt(list4.get(0).getLteMncString())==Integer.parseInt(lteMncString)){
+                                list4Lin.add(new To4GBean(lteMccString,lteMncString,lteTac+"",ltePci+"",
+                                        lteCi+"",lteEarfac+"",lteBand+"",lteRssi+"",
+                                        lteRsrp+"", lteRsrq+"", lteRssnr+"","op","LTE","小区类型 LTE"));
+                            }
                         }
+
                     }
                     if(list4.size()==2){
                         if(Integer.parseInt(list4.get(1).getLteMncString())==Integer.parseInt(lteMncString)){//代表一个运营商的邻小区

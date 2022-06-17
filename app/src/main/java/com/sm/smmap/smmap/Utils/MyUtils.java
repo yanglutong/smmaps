@@ -6,41 +6,30 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.CircleOptions;
 import com.baidu.mapapi.map.DotOptions;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.Stroke;
-import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.blankj.utilcode.util.AppUtils;
-import com.j256.ormlite.stmt.query.In;
 import com.sm.smmap.smmap.Bean.NumberBean;
 import com.sm.smmap.smmap.MainActivity;
 import com.sm.smmap.smmap.R;
 import com.sm.smmap.smmap.Retrofit.DataBean;
-import com.sm.smmap.smmap.Retrofit.MyURL;
 import com.sm.smmap.smmap.Retrofit.RetrofitFactory;
 import com.sm.smmap.smmap.Utils.Bean.DownBean;
 import com.sm.smmap.smmap.Utils.http.OkGoUpdateHttpUtil;
@@ -49,13 +38,11 @@ import com.vector.update_app.UpdateAppManager;
 import com.vector.update_app.UpdateCallback;
 import com.vector.update_app.listener.ExceptionHandler;
 import com.vector.update_app.listener.IUpdateDialogFragmentListener;
-import com.vector.update_app.utils.AppUpdateUtils;
 import com.vector.update_app.utils.ColorUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,14 +52,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.ContentValues.TAG;
-import static android.content.Context.SENSOR_SERVICE;
 
 public class MyUtils {
     private static Context context;
@@ -95,7 +79,6 @@ public class MyUtils {
 
     public MyUtils(Context context) {
         this.context = context;
-
     }
 
     //权限
@@ -133,7 +116,7 @@ public class MyUtils {
             Manifest.permission.REQUEST_INSTALL_PACKAGES,
             Manifest.permission.WAKE_LOCK,
             Manifest.permission.RECEIVE_BOOT_COMPLETED,
-            Manifest.permission.REQUEST_INSTALL_PACKAGES
+            Manifest.permission.REQUEST_INSTALL_PACKAGES,
     };//申请的权限
 
     /**
@@ -257,8 +240,10 @@ public class MyUtils {
                 Log.d(TAG, "upApponResponse: " + response.body());
                 if (response.body().getData() != null) {
                     String versionCode = response.body().getData().getVersionCode();
+                    Log.i("TAGUp", "onResponse: "+versionCode+"--"+AppUtils.getAppVersionCode());
                     int DoubuleversionCode = Integer.parseInt(versionCode);
                     int appVersionCode = AppUtils.getAppVersionCode();
+
                     //是否强制更新
                     if (response.body().getData().getAppType() == 1) {
                         typeAppup = true;

@@ -2,9 +2,8 @@ package com.sm.smmap.smmap.Import;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -13,23 +12,18 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.CoordinateConverter;
 import com.blankj.utilcode.util.ToastUtils;
-import com.sm.smmap.smmap.Adapter.CorrectionAdapter;
 import com.sm.smmap.smmap.OrmSqlLite.Bean.GuijiViewBeanjizhan;
 import com.sm.smmap.smmap.OrmSqlLite.DBManagerJZ;
 import com.sm.smmap.smmap.R;
 import com.sm.smmap.smmap.Retrofit.DataBean;
 import com.sm.smmap.smmap.Retrofit.RetrofitFactory;
 import com.sm.smmap.smmap.Utils.BillObject;
-import com.sm.smmap.smmap.Utils.MyUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
