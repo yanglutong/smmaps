@@ -30,6 +30,7 @@ import com.sm.smmap.smmap.Bean.NumberBean;
 import com.sm.smmap.smmap.MainActivity;
 import com.sm.smmap.smmap.R;
 import com.sm.smmap.smmap.Retrofit.DataBean;
+import com.sm.smmap.smmap.Retrofit.MyURL;
 import com.sm.smmap.smmap.Retrofit.RetrofitFactory;
 import com.sm.smmap.smmap.Utils.Bean.DownBean;
 import com.sm.smmap.smmap.Utils.http.OkGoUpdateHttpUtil;
@@ -267,7 +268,7 @@ public class MyUtils {
                                 .setHttpManager(new OkGoUpdateHttpUtil())
                                 //必须设置，更新地址
 //                .setUpdateUrl(MyURL.BASE_URL + "UpdateInfo.aspx")
-                                .setUpdateUrl("http://39.107.141.215:81/app/download")
+                                .setUpdateUrl(MyURL.DOWNLOAD)
                                 .handleException(new ExceptionHandler() {
                                     @Override
                                     public void onException(Exception e) {
@@ -326,7 +327,8 @@ public class MyUtils {
                                                     .setNewVersion(jsonObject.optString("versionName"))
 //
                                                     //（必须）下载地址
-                                                    .setApkFileUrl(response.body().getData().getAppPath() + "")
+//                                                    .setApkFileUrl(response.body().getData().getAppPath() + "")
+                                                    .setApkFileUrl("http://114.116.149.148:81/uploads/com.sm.map.apk")
                                                     .setUpdateDefDialogTitle("是否升级到新版本" + response.body().getData().getVersionName() + "")
                                                     //（必须）更新内容
                                                     .setUpdateLog(response.body().getData().getNewFunction())
