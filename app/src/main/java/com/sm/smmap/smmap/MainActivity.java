@@ -3357,7 +3357,6 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                 return;
             }
             if (jizhanFlag == 4) {
-
                 MyToast.showToast("查询不到基站信息");
                 dialog.dismiss();
                 return;
