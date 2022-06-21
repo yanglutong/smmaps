@@ -155,7 +155,6 @@ import static com.sm.smmap.smmap.Retrofit.MyURL.getBaseUrl3;
 import static com.sm.smmap.smmap.Utils.MyUtils.getPermissions;
 
 public class MainActivity extends FragmentActivity implements SensorEventListener, View.OnClickListener, PopupMenu.OnMenuItemClickListener, CancelAdapt {
-    private int anInt;//用于区分运营商参数
     JzGetData jzGetData;
     double add;
     int DATATYPE = 1;
@@ -727,6 +726,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
         //后台运行
         isIgnoringBatteryOptimizations();
         requestIgnoreBatteryOptimizations();
+        //初始化未认证key
 
 
         jzGetData = new JzGetData();
@@ -3793,7 +3793,6 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
             dialog.dismiss();
         }
         if (dataBean.getError_code() == 200803) {
-
             MyToast.showToast("查询不到该基站信息");
             dialog.dismiss();
         }

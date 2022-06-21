@@ -111,8 +111,19 @@ public class AppLication extends MultiDexApplication {
         //崩溃日志
 //        RWCrashHandler crashHandler = RWCrashHandler.getInstance();
 //        crashHandler.init(this);
+        if (mBMapManager == null) {
+            mBMapManager = new BMapManager(this);
+            mBMapManager.init(new AppLication.MyGeneralListener());
+        }
     }
 
+//
+//    private void initBMapManager() {
+//        if (this.mBMapManager == null) {
+//            app.mBMapManager = new BMapManager(app);
+//            app.mBMapManager.init(new AppLication.MyGeneralListener());
+//        }
+//    }
     /**
      * 给外部的三方库 {@link Activity} 自定义适配参数, 因为三方库的 {@link Activity} 并不能通过实现
      * {@link CustomAdapt} 接口的方式来提供自定义适配参数 (因为远程依赖改不了源码)

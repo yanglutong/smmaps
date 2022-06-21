@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/code/smmap/smmap3/smmap/app/src/main/res/layout/activity_location.xml" value="0.190234375" />
+        <entry key="..\:/code/smmap/smmap3/smmap/app/src/main/res/layout/activity_map_info.xml" value="0.180859375" />
+        <entry key="..\:/code/smmap/smmap3/smmap/app/src/main/res/layout/activity_map_info_list.xml" value="0.180859375" />
+        <entry key="..\:/code/smmap/smmap3/smmap/app/src/main/res/layout/activity_panorama_demo_main.xml" value="0.180859375" />
+        <entry key="..\:/code/smmap/smmap3/smmap/app/src/main/res/layout/activity_sernn_xq.xml" value="0.180859375" />
         <entry key="..\:/code/smmap/smmap3/smmap/app/src/main/res/layout/item_dibushow.xml" value="0.176" />
         <entry key="..\:/code/smmap/smmap3/smmap/app/src/main/res/layout/item_dibushow2.xml" value="0.190234375" />
         <entry key="..\:/code/smmap/smmap3/smmap/app/src/main/res/layout/item_dibushow_config.xml" value="0.190234375" />

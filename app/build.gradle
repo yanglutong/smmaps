@@ -8,8 +8,8 @@ android {//sm123456 key0  sm_location_ylt.jks
         //noinspection ExpiredTargetSdkVersion,OldTargetApi
         targetSdkVersion 28//基站查询适配rsrp能量值必须将此设置为>=28
 
-        versionCode 30//更新版本
-        versionName "5.0.6"
+        versionCode 32//更新版本
+        versionName "5.0.8"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         multiDexEnabled true
     }
